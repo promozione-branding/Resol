@@ -1,11 +1,10 @@
+
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Lenis from "lenis";
 
 export default function LenisScroll({ children }) {
-  const lenisRef = useRef(null);
-
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -15,8 +14,6 @@ export default function LenisScroll({ children }) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
-
-    lenisRef.current = lenis;
 
     let animationFrameId;
 

@@ -217,7 +217,7 @@ function ProductCard({ product, index }) {
       ref={cardRef}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className="
+      className={`
         group
         relative
         block
@@ -228,7 +228,7 @@ function ProductCard({ product, index }) {
         transition-all
         duration-500
         hover:border-black
-      "
+      `}
     >
       {/* IMAGE */}
 
@@ -236,16 +236,16 @@ function ProductCard({ product, index }) {
         <div
           className="
             absolute
-            inset-0
-            z-10
-            bg-gradient-to-t
-            from-black/10
-            via-transparent
-            to-transparent
-            opacity-0
-            transition-opacity
-            duration-500
-            group-hover:opacity-100
+            <span
+              className={`
+                font-[var(--font-lexend-deca)]
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-gray-400
+              `}
+            >
           "
         />
 
@@ -255,19 +255,19 @@ function ProductCard({ product, index }) {
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="
+          className={`
             object-contain
             p-8
             transition-transform
             duration-700
-          "
+          `}
         />
 
         {/* NUMBER */}
 
         <div
           ref={numberRef}
-          className="
+          className={`
             absolute
             left-5
             top-5
@@ -277,7 +277,7 @@ function ProductCard({ product, index }) {
             font-medium
             tracking-[0.2em]
             text-gray-400
-          "
+          `}
         >
           {product.number}
         </div>
@@ -286,7 +286,7 @@ function ProductCard({ product, index }) {
 
         <div
           ref={arrowRef}
-          className="
+          className={`
             absolute
             right-5
             top-5
@@ -304,7 +304,7 @@ function ProductCard({ product, index }) {
             duration-300
             group-hover:border-[#D4A017]
             group-hover:bg-[#D4A017]
-          "
+          `}
         >
           <FiArrowUpRight size={17} />
         </div>
@@ -318,14 +318,14 @@ function ProductCard({ product, index }) {
       >
         <div className="mb-3">
           <span
-            className="
-              font-['Lexend_Deca']
+            className={`
+              font-[var(--font-lexend-deca)]
               text-[10px]
               font-semibold
               uppercase
               tracking-[0.2em]
               text-gray-400
-            "
+            `}
           >
             {product.category}
           </span>
@@ -333,18 +333,18 @@ function ProductCard({ product, index }) {
 
         <div
           ref={lineRef}
-          className="
+          className={`
             mb-4
             h-px
             w-full
             bg-[#D4A017]
-          "
+          `}
         />
 
         <div className="flex items-center justify-between gap-4">
           <h3
-            className="
-              font-['Outfit']
+            className={`
+                font-[var(--font-outfit)]
               text-[24px]
               font-semibold
               leading-tight
@@ -353,15 +353,15 @@ function ProductCard({ product, index }) {
               transition-transform
               duration-500
               group-hover:translate-x-1
-            "
+            `}
           >
             {product.name}
           </h3>
 
           <span
-            className="
-              shrink-0
-              font-['Lexend_Deca']
+            className={`
+                shrink-0
+                font-[var(--font-lexend-deca)]
               text-[10px]
               font-medium
               uppercase
@@ -370,7 +370,7 @@ function ProductCard({ product, index }) {
               transition-colors
               duration-300
               group-hover:text-black
-            "
+            `}
           >
             View
           </span>
@@ -486,23 +486,16 @@ export default function ProductsSection() {
   return (
     <section
       ref={sectionRef}
-      className="
-        relative
-        overflow-hidden
-        bg-[#f7f7f5]
-        py-20
-        md:py-12
-        lg:py-15
-      "
+      className="relative overflow-hidden bg-[#f7f7f5] py-20 md:py-12 lg:py-15"
     >
       <div
-        className="
+        className={`
           mx-auto
           max-w-[1480px]
           px-5
           sm:px-8
           lg:px-12
-        "
+        `}
       >
 
         {/* =================================================
@@ -510,12 +503,12 @@ export default function ProductsSection() {
         ================================================= */}
 
         <div
-          className="
+          className={`
             grid
             items-start
             gap-8
             lg:grid-cols-[0.7fr_1.4fr_0.9fr]
-          "
+          `}
         >
 
           {/* =================================================
@@ -523,14 +516,14 @@ export default function ProductsSection() {
           ================================================= */}
 
           <div
-            className="
+            className={`
               lg:sticky
               lg:top-24
               lg:self-start
-            "
+            `}
           >
             <div
-              className="
+              className={`
                 relative
                 overflow-hidden
                 border
@@ -539,21 +532,21 @@ export default function ProductsSection() {
                 p-7
                 sm:p-8
                 lg:p-9
-              "
+              `}
             >
               <div
-                className="
+                className={`
                   absolute
                   right-0
                   top-0
                   h-1
                   w-20
                   bg-[#D4A017]
-                "
+                `}
               />
 
               <div
-                className="
+                className={`
                   absolute
                   -right-20
                   -top-20
@@ -562,35 +555,35 @@ export default function ProductsSection() {
                   rounded-full
                   bg-[#D4A017]/10
                   blur-3xl
-                "
+                `}
               />
 
               <div className="relative z-10">
 
                 <p
-                  className="
+                  className={`
                     mb-5
-                    font-['Lexend_Deca']
+                    font-[var(--font-lexend-deca)]
                     text-[10px]
                     font-medium
                     uppercase
                     tracking-[0.2em]
                     text-[#D4A017]
-                  "
+                  `}
                 >
                   Polymer Portfolio
                 </p>
 
                 <h3
-                  className="
-                    font-['Outfit']
+                  className={`
+                    font-[var(--font-outfit)]
                     text-3xl
                     font-semibold
                     leading-[1.08]
                     tracking-tight
                     text-white
                     md:text-4xl
-                  "
+                  `}
                 >
                   Reliable materials.
                   <br />
@@ -601,14 +594,14 @@ export default function ProductsSection() {
                 </h3>
 
                 <p
-                  className="
+                  className={`
                     mt-6
                     max-w-md
-                    font-['Lexend_Deca']
+                    font-[var(--font-lexend-deca)]
                     text-sm
                     leading-7
                     text-gray-400
-                  "
+                  `}
                 >
                   Quality-focused sourcing and distribution of polymer
                   materials for manufacturers and industrial applications
@@ -621,7 +614,7 @@ export default function ProductsSection() {
                 >
                   <Link
                     href="/products"
-                    className="
+                    className={`
                       group
                       inline-flex
                       items-center
@@ -631,7 +624,7 @@ export default function ProductsSection() {
                       bg-[#D4A017]
                       px-5
                       py-3
-                      font-['Lexend_Deca']
+                      font-[var(--font-lexend-deca)]
                       text-[11px]
                       font-semibold
                       uppercase
@@ -641,16 +634,16 @@ export default function ProductsSection() {
                       duration-300
                       hover:border-white
                       hover:bg-white
-                    "
+                    `}
                   >
                     Explore All Products
 
                     <FiArrowRight
-                      className="
+                      className={`
                         transition-transform
                         duration-300
                         group-hover:translate-x-1
-                      "
+                      `}
                     />
                   </Link>
                 </div>
@@ -660,20 +653,20 @@ export default function ProductsSection() {
             {/* INFORMATION */}
 
             <div
-              className="
+              className={`
                 mt-5
                 border-l-2
                 border-[#D4A017]
                 pl-5
-              "
+              `}
             >
               <p
-                className="
-                  font-['Lexend_Deca']
+                className={`
+                  font-[var(--font-lexend-deca)]
                   text-xs
                   leading-6
                   text-gray-500
-                "
+                `}
               >
                 Serving diverse applications across PVC pipes,
                 footwear, flooring, packaging, plastics and
@@ -701,7 +694,7 @@ export default function ProductsSection() {
                                        letterDelay={0.04}
                                        color="#111111"
                                        highlightColor="#D4A017"
-                                       className="
+                                       className={`
                                          text-[40px]
                                          font-black
                                          leading-[0.86]
@@ -709,18 +702,18 @@ export default function ProductsSection() {
                                          sm:text-[45px]
                                          md:text-[50px]
                                          lg:text-[55px]
-                                       "
+                                       `}
                                      />
               </div>
 
               <span
-                className="
+                className={`
                   hidden
                   font-mono
                   text-[11px]
                   text-gray-400
                   sm:block
-                "
+                `}
               >
                 06 PRODUCTS
               </span>
@@ -729,13 +722,13 @@ export default function ProductsSection() {
             {/* SCROLL AREA */}
 
             <div
-              className="
+              className={`
                 products-scroll
                 max-h-[calc(100vh-190px)]
                 overflow-y-auto
                 pr-2
                 lg:max-h-[680px]
-              "
+              `}
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 {products.map((product, index) => (
@@ -754,79 +747,79 @@ export default function ProductsSection() {
           ================================================= */}
 
           <div
-            className="
+            className={`
               hidden
               lg:sticky
               lg:top-24
               lg:block
               lg:self-start
-            "
+            `}
           >
             <div
               ref={featureRef}
-              className="
+              className={`
                 group
                 relative
                 min-h-[680px]
                 overflow-hidden
                 bg-black
-              "
+              `}
             >
               <Image
                 src="/pro.webp"
                 alt="Resol Industries Products"
                 fill
                 sizes="33vw"
-                className="
+                className={`
                   object-cover
                   transition-transform
                   duration-[1200ms]
                   group-hover:scale-105
-                "
+                `}
               />
 
               <div
-                className="
+                className={`
                   absolute
                   inset-0
                   bg-gradient-to-t
                   from-black
                   via-black/35
                   to-black/5
-                "
+                `}
               />
 
               <div
-                className="
+                className={`
                   absolute
                   right-7
                   top-7
                   h-24
                   w-px
                   bg-[#D4A017]
-                "
+                `}
               />
 
               <div
-                className="
+                className={`
                   absolute
                   bottom-0
                   left-0
                   right-0
                   p-8
-                "
+                `}
               >
         
                 <h3
-                  className="
+                  className={`
                     max-w-sm
-                    font-['Outfit']
+                    font-[var(--font-outfit)]
                     text-4xl
                     font-semibold
                     leading-[1.05]
                     tracking-tight
                     text-white
-                  "
+                  `}
                 >
                   Materials that
                   <br />
@@ -834,14 +827,14 @@ export default function ProductsSection() {
                 </h3>
 
                 <p
-                  className="
+                  className={`
                     mt-5
                     max-w-sm
-                    font-['Lexend_Deca']
+                    font-[var(--font-lexend-deca)]
                     text-xs
                     leading-6
                     text-white/55
-                  "
+                  `}
                 >
                   Quality-focused sourcing and distribution of
                   polymer materials for industrial manufacturing
@@ -850,7 +843,7 @@ export default function ProductsSection() {
 
                 <Link
                   href="/products"
-                  className="
+                  className={`
                     group/link
                     mt-7
                     inline-flex
@@ -859,24 +852,24 @@ export default function ProductsSection() {
                     border-b
                     border-[#D4A017]
                     pb-2
-                    font-['Lexend_Deca']
+                    font-[var(--font-lexend-deca)]
                     text-[10px]
                     font-semibold
                     uppercase
                     tracking-[0.18em]
                     text-white
-                  "
+                  `}
                 >
                   View Product Range
 
                   <FiArrowUpRight
-                    className="
+                    className={`
                       text-[#D4A017]
                       transition-transform
                       duration-300
                       group-hover/link:translate-x-1
                       group-hover/link:-translate-y-1
-                    "
+                    `}
                   />
                 </Link>
               </div>
@@ -889,7 +882,7 @@ export default function ProductsSection() {
         <div className="mt-8 lg:hidden">
           <Link
             href="/products"
-            className="
+            className={`
               group
               flex
               w-full
@@ -900,7 +893,7 @@ export default function ProductsSection() {
               bg-black
               px-6
               py-5
-              font-['Lexend_Deca']
+              font-[var(--font-lexend-deca)]
               text-xs
               font-semibold
               uppercase
@@ -910,41 +903,21 @@ export default function ProductsSection() {
               duration-300
               hover:bg-[#D4A017]
               hover:text-black
-            "
+            `}
           >
             Explore Complete Product Range
 
             <FiArrowRight
-              className="
+              className={`
                 transition-transform
                 duration-300
                 group-hover:translate-x-1
-              "
+              `}
             />
           </Link>
         </div>
       </div>
 
-      {/* CUSTOM SCROLLBAR */}
-
-      <style jsx>{`
-        .products-scroll::-webkit-scrollbar {
-          width: 3px;
-        }
-
-        .products-scroll::-webkit-scrollbar-track {
-          background: #e5e5e3;
-        }
-
-        .products-scroll::-webkit-scrollbar-thumb {
-          background: #d4a017;
-        }
-
-        .products-scroll {
-          scrollbar-width: thin;
-          scrollbar-color: #d4a017 #e5e5e3;
-        }
-      `}</style>
     </section>
   );
 }
