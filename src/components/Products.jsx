@@ -684,17 +684,17 @@ export default function ProductsSection() {
             <div className="mb-5 flex items-center justify-between">
               <div>
 
-             {/* REUSABLE TITLE */}
-             
-                         <AnimatedTitle
-                                       text="Our"
-                                       highlight="Products"
-                                       delay={0.15}
-                                       duration={0.8}
-                                       letterDelay={0.04}
-                                       color="#111111"
-                                       highlightColor="#D4A017"
-                                       className={`
+                {/* REUSABLE TITLE */}
+
+                <AnimatedTitle
+                  text="Our"
+                  highlight="Products"
+                  delay={0.15}
+                  duration={0.8}
+                  letterDelay={0.04}
+                  color="#111111"
+                  highlightColor="#D4A017"
+                  className={`
                                          text-[40px]
                                          font-black
                                          leading-[0.86]
@@ -703,7 +703,7 @@ export default function ProductsSection() {
                                          md:text-[50px]
                                          lg:text-[55px]
                                        `}
-                                     />
+                />
               </div>
 
               <span
@@ -809,7 +809,7 @@ export default function ProductsSection() {
                   p-8
                 `}
               >
-        
+
                 <h3
                   className={`
                     max-w-sm
