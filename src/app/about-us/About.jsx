@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 
 import {
   FaArrowRight,
-  FaCheck,
   FaGlobe,
   FaHandshake,
   FaIndustry,
@@ -15,12 +14,12 @@ import {
   FaAward,
   FaLocationDot,
 } from "react-icons/fa6";
+
 import Scroll from "@/components/Scroll";
-import Counter from "@/components/Counter";
 import OurTeam from "@/components/OurTeam";
 
 /* ============================================================
-   ANIMATION VARIANTS
+   ANIMATION
 ============================================================ */
 
 const ease = [0.22, 1, 0.36, 1];
@@ -28,13 +27,13 @@ const ease = [0.22, 1, 0.36, 1];
 const fadeUp = {
   hidden: {
     opacity: 0,
-    y: 40,
+    y: 35,
   },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.75,
       ease,
     },
   },
@@ -49,7 +48,7 @@ const fadeLeft = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.8,
       ease,
     },
   },
@@ -64,13 +63,13 @@ const fadeRight = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.8,
       ease,
     },
   },
 };
 
-const staggerContainer = {
+const stagger = {
   hidden: {},
   show: {
     transition: {
@@ -80,7 +79,7 @@ const staggerContainer = {
 };
 
 /* ============================================================
-   JOURNEY DATA
+   JOURNEY
 ============================================================ */
 
 const journey = [
@@ -139,7 +138,7 @@ const differentiators = [
 ];
 
 /* ============================================================
-   QUALITY DATA
+   COMMITMENTS
 ============================================================ */
 
 const commitments = [
@@ -176,17 +175,16 @@ const commitments = [
 ];
 
 /* ============================================================
-   MAIN PAGE
+   MAIN
 ============================================================ */
 
 export default function AboutUs() {
   return (
-    
-    <main className="min-h-screen overflow-hidden bg-[#FAF9F4] text-[#17130B]">
+    <main className="min-h-screen overflow-hidden bg-[#F3E6D5] text-[#17130B]">
 
-      {/* =====================================================
-          BACKGROUND DECORATIONS
-      ====================================================== */}
+      {/* ========================================================
+          GLOBAL DECOR
+      ======================================================== */}
 
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
 
@@ -200,135 +198,96 @@ export default function AboutUs() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="
-            absolute
-            -left-40
-            top-20
-            h-[500px]
-            w-[500px]
-            rounded-full
-            bg-[#D4A017]/[0.07]
-            blur-[130px]
-          "
+          className="absolute -left-40 top-40 h-[450px] w-[450px] rounded-full bg-[#D4A017]/[0.06] blur-[120px]"
         />
 
         <motion.div
           animate={{
             x: [0, -30, 0],
-            y: [0, 30, 0],
+            y: [0, 25, 0],
           }}
           transition={{
             duration: 15,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="
-            absolute
-            -right-40
-            top-[900px]
-            h-[550px]
-            w-[550px]
-            rounded-full
-            bg-[#D4A017]/[0.05]
-            blur-[140px]
-          "
+          className="absolute -right-40 top-[1100px] h-[500px] w-[500px] rounded-full bg-[#D4A017]/[0.05] blur-[130px]"
         />
 
       </div>
 
-      {/* =====================================================
+      {/* ========================================================
           HERO
-      ====================================================== */}
+      ======================================================== */}
 
-      <section
-        className="
-          relative
-          z-10
-          px-5
-          pb-16
-          pt-28
-          md:px-8
-          md:pb-24
-          md:pt-36
-        "
-      >
+      <section className="relative z-10 min-h-[90vh] overflow-hidden bg-[#F3E6D5] px-5 pb-12 pt-28 sm:pt-32 md:px-8 lg:min-h-screen lg:pt-32">
 
-        <div className="mx-auto max-w-7xl">
+        {/* GIANT BACKGROUND WORD */}
 
-          <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -80,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 1.2,
+            ease,
+          }}
+          className="pointer-events-none absolute -left-4 top-[18%] select-none text-[25vw] font-black leading-none tracking-[-0.08em] text-[#17130B]/[0.035] sm:text-[22vw]"
+        >
+          RESOL
+        </motion.div>
 
-            {/* HERO CONTENT */}
+        <div className="mx-auto max-w-[1500px]">
+
+          <div className="grid min-h-[70vh] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+
+            {/* LEFT */}
 
             <motion.div
               initial="hidden"
               animate="show"
-              variants={staggerContainer}
+              variants={stagger}
+              className="relative z-10"
             >
 
               <motion.div
                 variants={fadeUp}
                 className="mb-6 flex items-center gap-3"
               >
+                <span className="h-px w-12 bg-[#D4A017]" />
 
-                <span className="h-px w-10 bg-[#D4A017]" />
-
-                <span
-                  className="
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-[0.3em]
-                    text-[#B8860B]
-                  "
-                >
+                <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#A97900]">
                   About Resol Industries
                 </span>
-
               </motion.div>
 
-              {/* HEADING */}
-
               <motion.h1
-                variants={staggerContainer}
-                className="
-                  text-4xl
-                  font-bold
-                  leading-[1.08]
-                  tracking-tight
-                  text-[#17130B]
-                  sm:text-5xl
-                  md:text-6xl
-                  lg:text-7xl
-                "
+                variants={fadeUp}
+                className="max-w-4xl text-[60px] font-black leading-[55px] tracking-[-0.055em]"
               >
+                Built on
 
-                <motion.span
-                  variants={fadeUp}
-                  className="block"
-                >
-                  Built on Experience.
-                </motion.span>
+                <span className="block text-[#B8860B]">
+                  Experience.
+                </span>
 
-                <motion.span
-                  variants={fadeUp}
-                  className="block text-[#C28E0B]"
-                >
-                  Driven by Reliability.
-                </motion.span>
+                <span className="mt-2 block text-[#17130B]">
+                  Driven by
+                </span>
 
+                <span className="block text-[#B8860B]">
+                  Reliability.
+                </span>
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
-                className="
-                  mt-7
-                  max-w-2xl
-                  text-base
-                  leading-7
-                  text-[#6F695F]
-                  md:text-lg
-                  md:leading-8
-                "
+                className="mt-7 max-w-xl text-sm leading-7 text-[#6F695F] md:text-base"
               >
                 Resol Industries Ltd. is an established importer and
                 distributor of industrial materials, serving businesses
@@ -336,85 +295,15 @@ export default function AboutUs() {
                 relationships.
               </motion.p>
 
-              {/* BUTTONS */}
-
-              <motion.div
-                variants={fadeUp}
-                className="mt-8 flex flex-wrap gap-4"
-              >
-
-                <Link
-                  href="/products"
-                  className="
-                    group
-                    inline-flex
-                    items-center
-                    gap-3
-                    rounded-full
-                    bg-[#D4A017]
-                    px-7
-                    py-3.5
-                    text-sm
-                    font-bold
-                    text-white
-                    shadow-[0_10px_30px_rgba(212,160,23,0.18)]
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                    hover:bg-[#B8860B]
-                    hover:shadow-[0_15px_35px_rgba(212,160,23,0.28)]
-                  "
-                >
-                  Explore Our Products
-
-                  <FaArrowRight
-                    size={13}
-                    className="
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  />
-
-                </Link>
-
-                <Link
-                  href="/contact-us"
-                  className="
-                    inline-flex
-                    items-center
-                    gap-3
-                    rounded-full
-                    border
-                    border-[#DED7C8]
-                    bg-white
-                    px-7
-                    py-3.5
-                    text-sm
-                    font-bold
-                    text-[#302B21]
-                    shadow-sm
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                    hover:border-[#D4A017]
-                    hover:shadow-md
-                  "
-                >
-                  Contact Us
-                </Link>
-
-              </motion.div>
-
             </motion.div>
 
-            {/* HERO IMAGE */}
+            {/* RIGHT IMAGE */}
 
             <motion.div
               initial={{
                 opacity: 0,
-                scale: 0.9,
-                x: 50,
+                scale: 0.92,
+                x: 70,
               }}
               animate={{
                 opacity: 1,
@@ -423,136 +312,78 @@ export default function AboutUs() {
               }}
               transition={{
                 duration: 1,
-                delay: 0.2,
+                delay: 0.15,
                 ease,
               }}
               className="relative"
             >
 
+              <div className="absolute -right-3 -top-3 h-full w-full border border-[#D4A017]/40 sm:-right-5 sm:-top-5" />
+
+              <div className="relative overflow-hidden bg-[#17130B] p-2">
+
+                <motion.div
+                  initial={{
+                    scale: 1.15,
+                  }}
+                  animate={{
+                    scale: 1,
+                  }}
+                  transition={{
+                    duration: 1.4,
+                    ease,
+                  }}
+                  className="relative h-[430px] overflow-hidden sm:h-[460px] lg:h-[510px]"
+                >
+
+                  <Image
+                    src="/About/pvc resin cate.webp"
+                    alt="Resol Industries"
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+
+                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+
+                    <div>
+                      <p className="text-5xl font-black leading-none text-white sm:text-6xl">
+                        2005
+                      </p>
+
+                      <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.3em] text-white/65">
+                        Established
+                      </p>
+                    </div>
+
+
+                  </div>
+
+                </motion.div>
+
+              </div>
+
               <motion.div
                 animate={{
-                  y: [0, -12, 0],
+                  y: [0, -10, 0],
                 }}
                 transition={{
-                  duration: 6,
+                  duration: 5,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="relative"
+                className="absolute -bottom-5 -left-3 bg-[#D4A017] px-5 py-4 shadow-xl sm:-left-7"
               >
 
-                <div
-                  className="
-                    absolute
-                    -right-5
-                    -top-5
-                    h-32
-                    w-32
-                    rounded-full
-                    bg-[#D4A017]/10
-                    blur-3xl
-                  "
-                />
+                <p className="text-2xl font-black text-[#17130B]">
+                  20+
+                </p>
 
-                <div
-                  className="
-                    relative
-                    overflow-hidden
-                    rounded-[30px]
-                    border
-                    border-[#E4DCCB]
-                    bg-white
-                    p-3
-                    shadow-[0_25px_70px_rgba(50,40,20,0.10)]
-                  "
-                >
-
-                  <motion.div
-                    initial={{ scale: 1.12 }}
-                    animate={{ scale: 1 }}
-                    transition={{
-                      duration: 1.4,
-                      ease,
-                    }}
-                    className="
-                      relative
-                      min-h-[380px]
-                      overflow-hidden
-                      rounded-[22px]
-                      bg-[#F1EBDD]
-                      md:min-h-[470px]
-                    "
-                  >
-
-                    <Image
-                      src="/About/pvc resin cate.webp"
-                      alt="Resol Industries"
-                      fill
-                      priority
-                      className="object-cover"
-                    />
-
-                  </motion.div>
-
-                  {/* EXPERIENCE BADGE */}
-
-                  <motion.div
-                    initial={{
-                      opacity: 0,
-                      y: 25,
-                      scale: 0.9,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 0.8,
-                      ease,
-                    }}
-                    className="
-                      absolute
-                      bottom-8
-                      left-8
-                      rounded-2xl
-                      border
-                      border-white/60
-                      bg-white/95
-                      px-5
-                      py-4
-                      shadow-xl
-                      backdrop-blur-md
-                    "
-                  >
-
-                    <p
-                      className="
-                        text-3xl
-                        font-bold
-                        text-[#B8860B]
-                      "
-                    >
-                      2005
-                    </p>
-
-                    <p
-                      className="
-                        mt-0.5
-                        text-[10px]
-                        font-bold
-                        uppercase
-                        tracking-wider
-                        text-[#777066]
-                      "
-                    >
-                      Established
-                    </p>
-
-                  </motion.div>
-
-                </div>
+                <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#17130B]/65">
+                  Years Experience
+                </p>
 
               </motion.div>
 
@@ -562,29 +393,18 @@ export default function AboutUs() {
 
         </div>
 
+
       </section>
 
-      {/* =====================================================
-          ABOUT SECTION
-      ====================================================== */}
+      {/* ========================================================
+          ABOUT STORY
+      ======================================================== */}
 
-      <section
-        className="
-          relative
-          z-10
-          border-y
-          border-[#E9E2D4]
-          bg-white
-          px-5
-          py-13
-          md:px-8
-          md:py-15
-        "
-      >
+      <section className="relative z-10 overflow-hidden bg-white px-5 py-16 md:px-8 md:py-20">
 
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1400px]">
 
-          <div className="grid items-center gap-14 lg:grid-cols-2">
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.95fr] lg:gap-20">
 
             {/* IMAGE */}
 
@@ -596,54 +416,28 @@ export default function AboutUs() {
                 once: true,
                 amount: 0.2,
               }}
-              className="
-                relative
-                order-2
-                lg:order-1
-              "
+              className="relative"
             >
 
-              <motion.div
-                animate={{
-                  rotate: [0, 2, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="
-                  absolute
-                  -bottom-5
-                  -left-5
-                  h-28
-                  w-28
-                  border
-                  border-[#D4A017]/30
-                "
-              />
+              <div className="absolute -left-4 -top-4 h-28 w-28 border-l border-t border-[#D4A017] sm:-left-8 sm:-top-8 sm:h-40 sm:w-40" />
 
-              <div
-                className="
-                  relative
-                  min-h-[380px]
-                  overflow-hidden
-                  rounded-[26px]
-                  bg-[#F1EBDD]
-                  shadow-[0_20px_60px_rgba(50,40,20,0.08)]
-                  md:min-h-[600px]
-                "
-              >
+              <div className="relative ml-3 overflow-hidden bg-[#17130B] p-2 sm:ml-8">
 
                 <motion.div
-                  initial={{ scale: 1.08 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
+                  initial={{
+                    scale: 1.08,
+                  }}
+                  whileInView={{
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
                   transition={{
                     duration: 1.2,
                     ease,
                   }}
-                  className="absolute inset-0"
+                  className="relative h-[420px] sm:h-[550px]"
                 >
 
                   <Image
@@ -653,9 +447,24 @@ export default function AboutUs() {
                     className="object-cover"
                   />
 
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                  <div className="absolute bottom-5 left-5">
+
+                    <p className="text-4xl font-black text-white">
+                      RIL
+                    </p>
+
+                    <p className="mt-1 text-[9px] uppercase tracking-[0.3em] text-white/60">
+                      Industrial Materials
+                    </p>
+
+                  </div>
+
                 </motion.div>
 
               </div>
+
 
             </motion.div>
 
@@ -669,41 +478,35 @@ export default function AboutUs() {
                 once: true,
                 amount: 0.2,
               }}
-              className="order-1 lg:order-2"
             >
 
-              <SectionLabel text="Who We Are" />
+              {/* SECTION LABEL */}
 
-              <h2
-                className="
-                  mt-5
-                  text-3xl
-                  font-bold
-                  leading-tight
-                  text-[#17130B]
-                  md:text-5xl
-                "
-              >
+              <div className="flex items-center gap-3">
+
+                <span className="h-px w-10 bg-[#D4A017]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#A97900]">
+                  Who We Are
+                </span>
+
+              </div>
+
+              <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-tight md:text-6xl">
+
                 About
 
-                <span className="text-[#C28E0B]">
-                  {" "}Resol Industries Ltd.
+                <span className="block text-[#B8860B]">
+                  Resol Industries.
                 </span>
+
               </h2>
 
-              <div
-                className="
-                  mt-7
-                  space-y-5
-                  text-base
-                  leading-7
-                  text-[#6D675D]
-                "
-              >
+              <div className="mt-7 space-y-4 text-sm leading-7 text-[#6D675D]">
 
                 <p>
                   Resol Industries Ltd. (RIL) is an established{" "}
-                  <span className="font-semibold text-[#29241B]">
+                  <span className="font-bold text-[#29241B]">
                     PVC Resin importer
                   </span>{" "}
                   founded in 2005, with its head office in New Delhi,
@@ -735,35 +538,47 @@ export default function AboutUs() {
 
               </div>
 
-              {/* VALUES */}
-{/* STATS */}
+              {/* STATS */}
 
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="show"
-                viewport={{
-                  once: true,
-                }}
-                className="mt-8 grid grid-cols-3 gap-3"
-              >
+              <div className="mt-8 grid grid-cols-3 border-y border-[#DED7C8]">
 
-                <Stat
-                  number="2005"
-                  label="Founded"
-                />
+                <div className="px-3 py-5 text-center first:pl-0 sm:px-5">
 
-                <Stat
-                  number="20+"
-                  label="Years Experience"
-                />
+                  <p className="text-2xl font-black leading-none text-[#17130B] sm:text-3xl">
+                    2005
+                  </p>
 
-                <Stat
-                  number="Pan India"
-                  label="Market Reach"
-                />
+                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[1px] text-[#8A8378] sm:text-[9px]">
+                    Founded
+                  </p>
 
-              </motion.div>
+                </div>
+
+                <div className="px-3 py-5 text-center sm:px-5">
+
+                  <p className="text-2xl font-black leading-none text-[#17130B] sm:text-3xl">
+                    20+
+                  </p>
+
+                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[1px] text-[#8A8378] sm:text-[9px]">
+                    Years
+                  </p>
+
+                </div>
+
+                <div className="px-3 py-5 text-center last:pr-0 sm:px-5">
+
+                  <p className="text-2xl font-black leading-none text-[#17130B] sm:text-3xl">
+                    PAN
+                  </p>
+
+                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[1px] text-[#8A8378] sm:text-[9px]">
+                    India Reach
+                  </p>
+
+                </div>
+
+              </div>
 
             </motion.div>
 
@@ -773,684 +588,43 @@ export default function AboutUs() {
 
       </section>
 
-      {/* =====================================================
-          OUR BUSINESS
-      ====================================================== */}
-
-      <section
-  className="
-    relative
-    z-10
-    overflow-hidden
-    px-5
-    py-16
-    md:px-8
-    md:py-20
-  "
->
-  {/* =====================================================
-      PARALLAX BACKGROUND
-  ====================================================== */}
-
-  <div className="absolute inset-0 -z-20">
-    <motion.div
-      initial={{ scale: 1.08 }}
-      whileInView={{ scale: 1 }}
-      transition={{
-        duration: 1.5,
-        ease: "easeOut",
-      }}
-      viewport={{ once: true }}
-      className="absolute inset-0"
-    >
-      <img
-        src="/Calcium carbonate.webp"
-        alt=""
-        className="
-          h-full
-          w-full
-          object-cover
-          object-center
-        "
-      />
-    </motion.div>
-  </div>
-
-
-  {/* =====================================================
-      BLACK OVERLAY
-  ====================================================== */}
-
-  <div
-    className="
-      absolute
-      inset-0
-      -z-10
-      bg-black/75
-    "
-  />
-
-
-  {/* =====================================================
-      GOLD PARALLAX GLOW
-  ====================================================== */}
-
-  <motion.div
-    animate={{
-      y: [0, -25, 0],
-    }}
-    transition={{
-      duration: 8,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-    className="
-      pointer-events-none
-      absolute
-      -right-32
-      top-20
-      -z-10
-      h-[400px]
-      w-[400px]
-      rounded-full
-      bg-[#D4A017]/10
-      blur-[120px]
-    "
-  />
-
-
-  <div className="relative mx-auto max-w-7xl">
-
-    {/* =================================================
-        HEADING + CONTENT
-    ================================================= */}
-
-    <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-
-      {/* HEADING */}
-
-      <motion.div
-        variants={fadeLeft}
-        initial="hidden"
-        whileInView="show"
-        viewport={{
-          once: true,
-          amount: 0.2,
-        }}
-      >
-
-        <SectionLabel text="Our Business" />
-
-        <h2
-          className="
-            mt-5
-            text-3xl
-            font-bold
-            leading-tight
-            text-white
-            md:text-5xl
-          "
-        >
-          Connecting Global
-
-          <span className="block text-[#D4A017]">
-            Sources With India.
-          </span>
-        </h2>
-
-      </motion.div>
-
-
-      {/* CONTENT */}
-
-      <motion.div
-        variants={fadeRight}
-        initial="hidden"
-        whileInView="show"
-        viewport={{
-          once: true,
-          amount: 0.2,
-        }}
-        className="
-          space-y-6
-          text-base
-          leading-6
-          text-gray-300
-        "
-      >
-
-        <p>
-          Our business is built around international sourcing and
-          the import of industrial materials for the Indian market.
-          We work with established global sources to maintain a
-          diverse product portfolio and dependable availability.
-        </p>
-
-        <p>
-          Our products are marketed under the{" "}
-          <span className="font-semibold text-white">
-            Resol Industries brand
-          </span>
-          , allowing us to build a consistent presence in the
-          Indian market while maintaining our focus on product
-          quality and customer requirements.
-        </p>
-
-        <p>
-          With operations serving customers across India, we
-          continue to expand our product portfolio and strengthen
-          our market presence through responsible business
-          practices and long-term partnerships.
-        </p>
-
-      </motion.div>
-
-    </div>
-
-
-    {/* =================================================
-        BUSINESS CARDS
-    ================================================= */}
-
-    <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="show"
-      viewport={{
-        once: true,
-        amount: 0.15,
-      }}
-      className="
-        mt-14
-        grid
-        gap-4
-        sm:grid-cols-2
-        lg:grid-cols-4
-      "
-    >
-
-      <BusinessCard
-        icon={<FaGlobe />}
-        title="Global Sourcing"
-        text="Established international sourcing networks."
-      />
-
-      <BusinessCard
-        icon={<FaIndustry />}
-        title="Industrial Materials"
-        text="Diverse materials for multiple industries."
-      />
-
-      <BusinessCard
-        icon={<FaHandshake />}
-        title="Long-Term Partners"
-        text="Relationships built on reliability and trust."
-      />
-
-      <BusinessCard
-        icon={<FaLocationDot />}
-        title="Pan-India Reach"
-        text="Serving customers across India."
-      />
-
-    </motion.div>
-
-  </div>
-
-</section>
-
-    {/* Our Teams  */}
-
-
-      <OurTeam/>
-
-      {/* =====================================================
-          JOURNEY
-      ====================================================== */}
-
-      <section
-        className="
-          relative
-          z-10
-          overflow-hidden
-          bg-white
-          px-5
-          py-13
-          md:px-8
-          md:py-15
-        "
-      >
-
-        <div className="mx-auto max-w-7xl">
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
-            className="mb-14"
-          >
-
-            <SectionLabel text="Our Journey" />
-
-            <h2
-              className="
-                mt-5
-                max-w-3xl
-                text-3xl
-                font-bold
-                leading-tight
-                md:text-5xl
-              "
-            >
-              More Than Two Decades
-
-              <span className="text-[#C28E0B]">
-                {" "}of Progress.
-              </span>
-            </h2>
-
-          </motion.div>
-
-          {/* TIMELINE */}
-
-          <div className="relative">
-
-            {/* ANIMATED CENTER LINE */}
-
-            <motion.div
-              initial={{
-                scaleY: 0,
-                originY: 0,
-              }}
-              whileInView={{
-                scaleY: 1,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.1,
-              }}
-              transition={{
-                duration: 1.5,
-                ease,
-              }}
-              className="
-                absolute
-                bottom-0
-                left-[19px]
-                top-0
-                w-px
-                bg-[#E4DCCB]
-                md:left-1/2
-                md:-translate-x-1/2
-              "
-            />
-
-            <div className="space-y-10 md:space-y-16">
-
-              {journey.map((item, index) => (
-
-                <motion.div
-                  key={item.title}
-                  initial={{
-                    opacity: 0,
-                    x: index % 2 === 0 ? -60 : 60,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.08,
-                    ease,
-                  }}
-                  className="
-                    relative
-                    grid
-                    gap-6
-                    pl-14
-                    md:grid-cols-2
-                    md:gap-16
-                    md:pl-0
-                  "
-                >
-
-                  {/* DOT */}
-
-                  <motion.div
-                    initial={{
-                      scale: 0,
-                    }}
-                    whileInView={{
-                      scale: 1,
-                    }}
-                    viewport={{
-                      once: true,
-                    }}
-                    transition={{
-                      duration: 0.4,
-                      delay: index * 0.08 + 0.2,
-                    }}
-                    className="
-                      absolute
-                      left-[10px]
-                      top-1
-                      flex
-                      h-5
-                      w-5
-                      items-center
-                      justify-center
-                      rounded-full
-                      border-4
-                      border-white
-                      bg-[#D4A017]
-                      shadow-[0_0_0_3px_rgba(212,160,23,0.15)]
-                      md:left-1/2
-                      md:-translate-x-1/2
-                    "
-                  />
-
-                  {/* YEAR */}
-
-                  <div
-                    className={`
-                      ${
-                        index % 2 === 0
-                          ? "md:text-right"
-                          : "md:order-2 md:text-left"
-                      }
-                    `}
-                  >
-
-                    <span
-                      className="
-                        text-4xl
-                        font-bold
-                        text-[#D4A017]/40
-                        md:text-5xl
-                      "
-                    >
-                      {item.year}
-                    </span>
-
-                  </div>
-
-                  {/* CONTENT */}
-
-                  <div
-                    className={`
-                      ${
-                        index % 2 === 0
-                          ? "md:order-2"
-                          : "md:order-1"
-                      }
-                    `}
-                  >
-
-                    <motion.div
-                      whileHover={{
-                        y: -5,
-                      }}
-                      className="
-                        rounded-2xl
-                        border
-                        border-[#E5DDCC]
-                        bg-[#FAF9F4]
-                        p-6
-                        shadow-[0_8px_30px_rgba(50,40,20,0.04)]
-                        transition-shadow
-                        duration-300
-                        hover:shadow-[0_18px_40px_rgba(50,40,20,0.08)]
-                      "
-                    >
-
-                      <h3
-                        className="
-                          text-xl
-                          font-bold
-                          text-[#211D15]
-                        "
-                      >
-                        {item.title}
-                      </h3>
-
-                      <p
-                        className="
-                          mt-3
-                          text-sm
-                          leading-7
-                          text-[#716B61]
-                        "
-                      >
-                        {item.text}
-                      </p>
-
-                    </motion.div>
-
-                  </div>
-
-                </motion.div>
-
-              ))}
-
-            </div>
-
-          </div>
+      {/* ========================================================
+          BUSINESS SECTION
+      ======================================================== */}
+
+      <section className="relative z-10 overflow-hidden bg-[#17130B] px-5 py-16 text-white md:px-8 md:py-20">
+
+        <div className="absolute inset-0 opacity-20">
+
+          <Image
+            src="/Calcium carbonate.webp"
+            alt=""
+            fill
+            className="object-cover"
+          />
 
         </div>
 
-      </section>
-
-      {/* =====================================================
-          WHAT SETS US APART
-      ====================================================== */}
-
-      <section
-        className="
-          relative
-          z-10
-          bg-[#FAF9F4]
-          px-5
-          py-13
-          md:px-8
-          md:py-15
-        "
-      >
-
-        <div className="mx-auto max-w-7xl">
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{
-              once: true,
-            }}
-            className="mb-12"
-          >
-
-            <SectionLabel text="Why Resol Industries" />
-
-            <h2
-              className="
-                mt-5
-                text-3xl
-                font-bold
-                md:text-5xl
-              "
-            >
-              What Sets Us
-
-              <span className="text-[#C28E0B]">
-                {" "}Apart
-              </span>
-            </h2>
-
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{
-              once: true,
-              amount: 0.1,
-            }}
-            className="grid gap-5 md:grid-cols-2"
-          >
-
-            {differentiators.map((item, index) => (
-
-              <motion.div
-                key={item.title}
-                variants={fadeUp}
-                whileHover={{
-                  y: -8,
-                }}
-                className="
-                  group
-                  relative
-                  overflow-hidden
-                  rounded-2xl
-                  border
-                  border-[#E4DCCB]
-                  bg-white
-                  p-6
-                  shadow-[0_8px_30px_rgba(50,40,20,0.04)]
-                  transition-all
-                  duration-300
-                  hover:border-[#D4A017]/50
-                  hover:shadow-[0_18px_45px_rgba(50,40,20,0.08)]
-                  md:p-8
-                "
-              >
-
-                <span
-                  className="
-                    absolute
-                    right-5
-                    top-1
-                    text-7xl
-                    font-bold
-                    text-[#17130B]/[0.035]
-                  "
-                >
-                  0{index + 1}
-                </span>
-
-                <div className="relative">
-
-                  <motion.div
-                    whileHover={{
-                      rotate: 8,
-                      scale: 1.08,
-                    }}
-                    className="
-                      flex
-                      h-12
-                      w-12
-                      items-center
-                      justify-center
-                      rounded-xl
-                      bg-[#D4A017]/10
-                      text-[#B8860B]
-                      transition-all
-                      duration-300
-                      group-hover:bg-[#D4A017]
-                      group-hover:text-white
-                    "
-                  >
-                    {item.icon}
-                  </motion.div>
-
-                  <h3
-                    className="
-                      mt-5
-                      text-xl
-                      font-bold
-                      text-[#211D15]
-                    "
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-3
-                      text-sm
-                      leading-7
-                      text-[#716B61]
-                    "
-                  >
-                    {item.text}
-                  </p>
-
-                </div>
-
-              </motion.div>
-
-            ))}
-
-          </motion.div>
-
-        </div>
-
-      </section>
-
-      {/* =====================================================
-          QUALITY SECTION
-      ====================================================== */}
-
-      <section
-        className="
-          relative
-          z-10
-          overflow-hidden
-          bg-[#17130B]
-          px-5
-          py-12
-          text-white
-          md:px-8
-          md:py-15
-        "
-      >
+        <div className="absolute inset-0 bg-[#17130B]/80" />
 
         <motion.div
           animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.5, 0.8, 0.5],
+            x: [0, 40, 0],
+            y: [0, -30, 0],
           }}
           transition={{
             duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="
-            pointer-events-none
-            absolute
-            -right-40
-            top-0
-            h-[500px]
-            w-[500px]
-            rounded-full
-            bg-[#D4A017]/10
-            blur-[130px]
-          "
+          className="absolute -right-40 top-0 h-[450px] w-[450px] rounded-full bg-[#D4A017]/10 blur-[120px]"
         />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-[1400px]">
 
-          <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr]">
+          <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
 
-            {/* HEADING */}
+            {/* LEFT */}
 
             <motion.div
               variants={fadeLeft}
@@ -1462,291 +636,187 @@ export default function AboutUs() {
               }}
             >
 
-              <p
-                className="
-                  text-xs
-                  font-bold
-                  uppercase
-                  tracking-[0.25em]
-                  text-[#D4A017]
-                "
-              >
-                Our Commitment
-              </p>
+              <div className="flex items-center gap-3">
 
-              <h2
-                className="
-                  mt-5
-                  text-3xl
-                  font-bold
-                  leading-tight
-                  md:text-5xl
-                "
-              >
-                Quality &
+                <span className="h-px w-10 bg-[#D4A017]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#D4A017]">
+                  Our Business
+                </span>
+
+              </div>
+
+              <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-tight md:text-[55px]">
+
+                Connecting
 
                 <span className="block text-[#D4A017]">
-                  Reliability
+                  Global Sources
                 </span>
-              </h2>
 
-              <p
-                className="
-                  mt-6
-                  max-w-md
-                  text-sm
-                  leading-7
-                  text-white/55
-                "
-              >
-                Our approach is built around responsible sourcing,
-                consistent standards, customer understanding and
-                relationships that create long-term value.
-              </p>
+                With India.
+
+              </h2>
 
             </motion.div>
 
-            {/* COMMITMENTS */}
+            {/* RIGHT */}
 
             <motion.div
-              variants={staggerContainer}
+              variants={fadeRight}
               initial="hidden"
               whileInView="show"
               viewport={{
                 once: true,
-                amount: 0.1,
+                amount: 0.2,
               }}
-              className="grid gap-3 sm:grid-cols-2"
+              className="space-y-5 text-sm leading-7 text-white/60"
             >
 
-              {commitments.map((item) => (
+              <p>
+                Our business is built around international sourcing and
+                the import of industrial materials for the Indian market.
+                We work with established global sources to maintain a
+                diverse product portfolio and dependable availability.
+              </p>
 
-                <motion.div
-                  key={item.title}
-                  variants={fadeUp}
-                  whileHover={{
-                    y: -5,
-                    borderColor: "rgba(212,160,23,0.4)",
-                  }}
-                  className="
-                    group
-                    rounded-2xl
-                    border
-                    border-white/10
-                    bg-white/[0.04]
-                    p-5
-                    transition-all
-                    duration-300
-                    hover:bg-[#D4A017]/[0.07]
-                  "
-                >
+              <p>
+                Our products are marketed under the{" "}
+                <span className="font-semibold text-white">
+                  Resol Industries brand
+                </span>
+                , allowing us to build a consistent presence in the
+                Indian market while maintaining our focus on product
+                quality and customer requirements.
+              </p>
 
-                  <div className="flex items-center justify-between">
-
-          
-
-                  </div>
-
-                  <h3
-                    className="
-                      mt-5 text-[20px]
-                  
-                      font-bold
-                      text-white
-                    "
-                  >
-                    {item.title}
-                  </h3>
-
-                </motion.div>
-
-              ))}
+              <p>
+                With operations serving customers across India, we
+                continue to expand our product portfolio and strengthen
+                our market presence through responsible business
+                practices and long-term partnerships.
+              </p>
 
             </motion.div>
 
           </div>
 
-        </div>
-
-      </section>
-
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
-
-      <section
-        className="
-          relative
-          z-10
-          bg-[#FAF9F4]
-          px-5
-          py-14
-          md:px-8
-          md:py-15
-        "
-      >
-
-        <div className="mx-auto max-w-7xl">
+          {/* BUSINESS GRID */}
 
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 40,
-              scale: 0.97,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
             viewport={{
               once: true,
-              amount: 0.2,
+              amount: 0.1,
             }}
-            transition={{
-              duration: 0.8,
-              ease,
-            }}
-            className="
-              relative
-              overflow-hidden
-              rounded-[30px]
-              bg-[#D4A017]
-              px-6
-              py-12
-              md:px-12
-              md:py-16
-            "
+            className="mt-14 grid border-l border-t border-white/10 sm:grid-cols-2 lg:grid-cols-4"
           >
 
-            {/* DECORATION */}
+            {/* CARD 01 */}
 
             <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 10, 0],
-              }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="
-                absolute
-                -right-24
-                -top-32
-                h-80
-                w-80
-                rounded-full
-                bg-white/10
-                blur-3xl
-              "
-            />
-
-            <div
-              className="
-                relative
-                flex
-                flex-col
-                items-start
-                justify-between
-                gap-8
-                md:flex-row
-                md:items-center
-              "
+              variants={fadeUp}
+              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
             >
 
-              <div className="max-w-2xl">
+              <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
+                01
+              </span>
 
-                <p
-                  className="
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-[0.25em]
-                    text-white/70
-                  "
-                >
-                  Let&apos;s Discuss Your Requirements
-                </p>
-
-                <h2
-                  className="
-                    mt-4
-                    text-3xl
-                    font-bold
-                    leading-tight
-                    text-white
-                    md:text-4xl
-                  "
-                >
-                  Looking for PVC Resin or
-                  other imported industrial materials?
-                </h2>
-
-                <p
-                  className="
-                    mt-4
-                    text-sm
-                    leading-6
-                    text-white/75
-                  "
-                >
-                  Get in touch with Resol Industries to discuss your
-                  requirements and find the right products for your
-                  business.
-                </p>
-
+              <div className="flex h-11 w-11 items-center justify-center bg-[#D4A017]/10 text-[#D4A017] transition-all duration-500 group-hover:bg-[#D4A017] group-hover:text-[#17130B]">
+                <FaGlobe />
               </div>
 
-              <motion.div
-                whileHover={{
-                  scale: 1.04,
-                }}
-                whileTap={{
-                  scale: 0.97,
-                }}
-              >
+              <h3 className="mt-6 text-lg font-black text-white">
+                Global Sourcing
+              </h3>
 
-                <Link
-                  href="/contact-us"
-                  className="
-                    group
-                    flex
-                    flex-shrink-0
-                    items-center
-                    gap-3
-                    rounded-full
-                    bg-white
-                    px-7
-                    py-4
-                    text-sm
-                    font-bold
-                    text-[#302B21]
-                    shadow-lg
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                    hover:shadow-xl
-                  "
-                >
+              <p className="mt-2 max-w-xs text-xs leading-6 text-white/45">
+                Established international sourcing networks.
+              </p>
 
-                  Contact Us Today
 
-                  <FaArrowRight
-                    size={13}
-                    className="
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  />
+            </motion.div>
 
-                </Link>
+            {/* CARD 02 */}
 
-              </motion.div>
+            <motion.div
+              variants={fadeUp}
+              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+            >
 
-            </div>
+              <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
+                02
+              </span>
+
+              <div className="flex h-11 w-11 items-center justify-center bg-[#D4A017]/10 text-[#D4A017] transition-all duration-500 group-hover:bg-[#D4A017] group-hover:text-[#17130B]">
+                <FaIndustry />
+              </div>
+
+              <h3 className="mt-6 text-lg font-black text-white">
+                Industrial Materials
+              </h3>
+
+              <p className="mt-2 max-w-xs text-xs leading-6 text-white/45">
+                Diverse materials for multiple industries.
+              </p>
+
+
+            </motion.div>
+
+            {/* CARD 03 */}
+
+            <motion.div
+              variants={fadeUp}
+              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+            >
+
+              <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
+                03
+              </span>
+
+              <div className="flex h-11 w-11 items-center justify-center bg-[#D4A017]/10 text-[#D4A017] transition-all duration-500 group-hover:bg-[#D4A017] group-hover:text-[#17130B]">
+                <FaHandshake />
+              </div>
+
+              <h3 className="mt-6 text-lg font-black text-white">
+                Long-Term Partners
+              </h3>
+
+              <p className="mt-2 max-w-xs text-xs leading-6 text-white/45">
+                Relationships built on reliability and trust.
+              </p>
+
+
+            </motion.div>
+
+            {/* CARD 04 */}
+
+            <motion.div
+              variants={fadeUp}
+              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+            >
+
+              <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
+                04
+              </span>
+
+              <div className="flex h-11 w-11 items-center justify-center bg-[#D4A017]/10 text-[#D4A017] transition-all duration-500 group-hover:bg-[#D4A017] group-hover:text-[#17130B]">
+                <FaLocationDot />
+              </div>
+
+              <h3 className="mt-6 text-lg font-black text-white">
+                Pan-India Reach
+              </h3>
+
+              <p className="mt-2 max-w-xs text-xs leading-6 text-white/45">
+                Serving customers across India.
+              </p>
+
+
+            </motion.div>
 
           </motion.div>
 
@@ -1754,203 +824,493 @@ export default function AboutUs() {
 
       </section>
 
-    </main>
-  );
-}
+      {/* ========================================================
+          TEAM
+      ======================================================== */}
 
-/* ============================================================
-   SECTION LABEL
-============================================================ */
+      <section className="relative z-10 bg-[#F5F3ED]">
+        <OurTeam />
+      </section>
 
-function SectionLabel({ text }) {
-  return (
+      {/* Our Jurnry */}
+<section className="relative z-10 overflow-hidden bg-gray-100 px-5 py-16 md:px-8 md:py-20">
+
+  {/* ============================================================
+      BACKGROUND SVG DECORATIONS — DESIGN ONLY
+  ============================================================ */}
+
+  <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+    {/* TOP LEFT DOT GRID */}
+    <svg
+      className="absolute left-5 top-8 h-20 w-20 text-[#D4A017]/20 md:left-10"
+      viewBox="0 0 80 80"
+      fill="none"
+    >
+      <g fill="currentColor">
+        <circle cx="8" cy="8" r="2" />
+        <circle cx="24" cy="8" r="2" />
+        <circle cx="40" cy="8" r="2" />
+        <circle cx="56" cy="8" r="2" />
+
+        <circle cx="8" cy="24" r="2" />
+        <circle cx="24" cy="24" r="2" />
+        <circle cx="40" cy="24" r="2" />
+        <circle cx="56" cy="24" r="2" />
+
+        <circle cx="8" cy="40" r="2" />
+        <circle cx="24" cy="40" r="2" />
+        <circle cx="40" cy="40" r="2" />
+        <circle cx="56" cy="40" r="2" />
+
+        <circle cx="8" cy="56" r="2" />
+        <circle cx="24" cy="56" r="2" />
+        <circle cx="40" cy="56" r="2" />
+        <circle cx="56" cy="56" r="2" />
+      </g>
+    </svg>
+
+
+    {/* TOP RIGHT ROCKET / GROWTH ICON */}
+    <motion.svg
+      animate={{
+        y: [0, -8, 0],
+        rotate: [0, 2, 0],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className="absolute right-8 top-8 hidden h-24 w-24 text-[#D4A017]/15 md:block lg:right-14 lg:top-10"
+      viewBox="0 0 100 100"
+      fill="none"
+    >
+      <path
+        d="M67 15C78 12 88 13 91 16C94 19 95 29 92 40C88 55 77 68 62 76L48 62C56 47 64 32 67 15Z"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <path
+        d="M48 62L39 70L40 58L48 50"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <path
+        d="M62 76L54 85L55 72"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <circle
+        cx="75"
+        cy="31"
+        r="6"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <path
+        d="M45 72C38 74 31 79 29 86C37 85 44 82 49 77"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+    </motion.svg>
+
+
+    {/* LEFT TARGET / GOAL ICON */}
+    <motion.svg
+      animate={{
+        scale: [1, 1.04, 1],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className="absolute left-3 top-[32%] hidden h-24 w-24 text-[#D4A017]/15 lg:block"
+      viewBox="0 0 100 100"
+      fill="none"
+    >
+      <circle
+        cx="48"
+        cy="52"
+        r="30"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <circle
+        cx="48"
+        cy="52"
+        r="20"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <circle
+        cx="48"
+        cy="52"
+        r="9"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <path
+        d="M48 52L80 20"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        d="M68 20H80V32"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+    </motion.svg>
+
+
+    {/* RIGHT GROWTH CHART */}
+    <motion.svg
+      animate={{
+        y: [0, -6, 0],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className="absolute right-4 top-[45%] hidden h-28 w-28 text-[#D4A017]/15 lg:block"
+      viewBox="0 0 100 100"
+      fill="none"
+    >
+      <path
+        d="M15 82H88"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <rect
+        x="23"
+        y="58"
+        width="12"
+        height="24"
+        fill="currentColor"
+      />
+      <rect
+        x="43"
+        y="44"
+        width="12"
+        height="38"
+        fill="currentColor"
+      />
+      <rect
+        x="63"
+        y="27"
+        width="12"
+        height="55"
+        fill="currentColor"
+      />
+      <path
+        d="M18 47L39 36L55 40L82 17"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        d="M69 17H82V30"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+    </motion.svg>
+
+
+    {/* BOTTOM LEFT COMPASS */}
+    <motion.svg
+      animate={{
+        rotate: [0, 3, 0, -3, 0],
+      }}
+      transition={{
+        duration: 8,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className="absolute -bottom-5 -left-5 hidden h-40 w-40 text-[#D4A017]/10 lg:block"
+      viewBox="0 0 160 160"
+      fill="none"
+    >
+      <circle
+        cx="80"
+        cy="80"
+        r="58"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <circle
+        cx="80"
+        cy="80"
+        r="47"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M80 28V132"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M28 80H132"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M94 58L77 91L63 102L80 69L94 58Z"
+        fill="currentColor"
+      />
+      <circle
+        cx="80"
+        cy="80"
+        r="6"
+        fill="currentColor"
+      />
+    </motion.svg>
+
+
+    {/* BOTTOM RIGHT GEAR */}
+    <motion.svg
+      animate={{
+        rotate: [0, 360],
+      }}
+      transition={{
+        duration: 25,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+      className="absolute -bottom-4 right-8 hidden h-24 w-24 text-[#D4A017]/10 lg:block"
+      viewBox="0 0 100 100"
+      fill="none"
+    >
+      <path
+        d="M43 8H57L60 18C64 19 68 21 71 24L81 21L89 33L82 40C83 44 84 48 83 52L92 59L85 72L75 69C72 72 68 75 64 77L63 88H48L45 78C41 77 37 75 34 72L24 76L17 63L25 56C24 52 24 48 25 44L17 37L24 24L35 28C38 25 41 22 45 20L43 8Z"
+        fill="currentColor"
+      />
+      <circle
+        cx="55"
+        cy="48"
+        r="15"
+        fill="#F3F4F6"
+      />
+      <circle
+        cx="55"
+        cy="48"
+        r="7"
+        fill="currentColor"
+      />
+    </motion.svg>
+
+
+    {/* SMALL SPARKLES */}
+    <svg
+      className="absolute right-[28%] top-[18%] h-8 w-8 text-[#D4A017]/20"
+      viewBox="0 0 40 40"
+      fill="currentColor"
+    >
+      <path d="M20 0L23 16L40 20L23 23L20 40L17 23L0 20L17 16L20 0Z" />
+    </svg>
+
+    <svg
+      className="absolute bottom-[18%] left-[22%] h-6 w-6 text-[#D4A017]/15"
+      viewBox="0 0 40 40"
+      fill="currentColor"
+    >
+      <path d="M20 0L23 16L40 20L23 23L20 40L17 23L0 20L17 16L20 0Z" />
+    </svg>
+
+
+    {/* LARGE DECORATIVE CURVE TOP */}
+    <svg
+      className="absolute left-0 top-0 h-[280px] w-full opacity-20"
+      viewBox="0 0 1440 280"
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <path
+        d="M-50 150C180 20 260 260 500 180C750 95 870 230 1100 130C1240 70 1330 45 1490 -20"
+        stroke="#D4A017"
+        strokeWidth="1.5"
+      />
+    </svg>
+
+
+    {/* BOTTOM CURVE */}
+    <svg
+      className="absolute bottom-0 left-0 h-[220px] w-full opacity-15"
+      viewBox="0 0 1440 220"
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <path
+        d="M-50 180C180 70 350 240 590 145C820 55 980 210 1190 125C1300 80 1390 60 1490 20"
+        stroke="#D4A017"
+        strokeWidth="1.5"
+      />
+    </svg>
+
+  </div>
+
+
+  {/* ============================================================
+      ORIGINAL CONTENT — UNCHANGED
+  ============================================================ */}
+
+  <div className="relative z-10 mx-auto max-w-[1400px]">
+
     <motion.div
-      initial={{
-        opacity: 0,
-        x: -15,
-      }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-      }}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
       viewport={{
         once: true,
       }}
-      transition={{
-        duration: 0.5,
-      }}
-      className="flex items-center gap-3"
+      className="grid gap-5 lg:grid-cols-[0.7fr_1.3fr]"
     >
 
-      <motion.span
-        initial={{
-          width: 0,
-        }}
-        whileInView={{
-          width: 32,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.5,
-        }}
-        className="h-px bg-[#D4A017]"
-      />
+      <div>
 
-      <span
-        className="
-          text-xs
-          font-bold
-          uppercase
-          tracking-[0.25em]
-          text-[#B8860B]
-        "
-      >
-        {text}
-      </span>
+        <div className="flex items-center gap-3">
 
-    </motion.div>
-  );
-}
+          <span className="h-px w-10 bg-[#D4A017]" />
 
-/* ============================================================
-   BUSINESS CARD
-============================================================ */
+          <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#A97900]">
+            Our Journey
+          </span>
 
-function BusinessCard({
-  icon,
-  title,
-  text,
-}) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-      }}
-      className="
-        group
-        rounded-2xl
-        border
-        border-[#E4DCCB]
-        bg-white
-        p-5
-        shadow-[0_8px_25px_rgba(50,40,20,0.04)]
-        transition-all
-        duration-300
-        hover:border-[#D4A017]/40
-        hover:shadow-[0_18px_40px_rgba(50,40,20,0.08)]
-      "
-    >
+        </div>
 
-      <motion.div
-        whileHover={{
-          rotate: 8,
-          scale: 1.1,
-        }}
-        className="
-          flex
-          h-11
-          w-11
-          items-center
-          justify-center
-          rounded-xl
-          bg-[#D4A017]/10
-          text-[#B8860B]
-          transition-all
-          duration-300
-          group-hover:bg-[#D4A017]
-          group-hover:text-white
-        "
-      >
-        {icon}
-      </motion.div>
+      </div>
 
-      <h3
-        className="
-          mt-5
-          text-[19px]
-          font-bold
-          text-[#211D15]
-        "
-      >
-        {title}
-      </h3>
+      <div>
 
-      <p
-        className="
-          mt-2
-          text-
-          leading-6
-          text-[#777066]
-        "
-      >
-        {text}
-      </p>
+        <h2 className="text-4xl font-black leading-[0.95] tracking-tight md:text-6xl">
+
+          More Than Two Decades
+
+          <span className="block text-[#B8860B]">
+            Of Progress.
+          </span>
+
+        </h2>
+
+      </div>
 
     </motion.div>
+
+
+    {/* TIMELINE */}
+
+    <div className="relative mt-14">
+
+      <div className="absolute bottom-0 left-[17px] top-0 w-px bg-[#DCD5C8] md:left-1/2 md:-translate-x-1/2" />
+
+      <div className="space-y-8 md:space-y-10">
+
+        {journey.map((item, index) => (
+
+          <motion.div
+            key={item.title}
+            initial={{
+              opacity: 0,
+              y: 35,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            transition={{
+              duration: 0.7,
+              delay: index * 0.06,
+              ease,
+            }}
+            className="relative grid gap-5 pl-12 md:grid-cols-2 md:gap-16 md:pl-0"
+          >
+
+            {/* DOT */}
+
+            <motion.div
+              initial={{
+                scale: 0,
+              }}
+              whileInView={{
+                scale: 1,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 0.4,
+              }}
+              className="absolute left-[8px] top-2 h-[19px] w-[19px] border-4 border-white bg-[#D4A017] md:left-1/2 md:-translate-x-1/2"
+            />
+
+
+            {/* YEAR */}
+
+            <div
+              className={
+                index % 2 === 0
+                  ? "md:text-right"
+                  : "md:order-2"
+              }
+            >
+
+              <span className="text-5xl font-black leading-none text-[#D4A017]/30 md:text-7xl">
+                {item.year}
+              </span>
+
+            </div>
+
+
+            {/* CONTENT */}
+
+            <div
+              className={
+                index % 2 === 0
+                  ? "md:order-2"
+                  : "md:order-1"
+              }
+            >
+
+              <motion.div
+                whileHover={{
+                  x: index % 2 === 0 ? 5 : -5,
+                }}
+                className="border-l-2 border-[#D4A017] bg-[#F5F3ED] p-5 md:p-6"
+              >
+
+                <h3 className="text-xl font-black text-[#211D15]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-2 text-sm leading-7 text-[#716B61]">
+                  {item.text}
+                </p>
+
+              </motion.div>
+
+            </div>
+
+          </motion.div>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+```
+
+
+
+
+    </main>
   );
 }
-
-/* ============================================================
-   STAT
-============================================================ */
-
-function Stat({
-  number,
-  label,
-}) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      whileHover={{
-        y: -5,
-      }}
-      className="
-        rounded-2xl
-        border
-        border-[#E5DDCC]
-        bg-[#FAF9F4]
-        px-3
-        py-4
-        text-center
-        transition-shadow
-        duration-300
-        hover:shadow-md
-      "
-    >
-
-      <p
-        className="
-          text-lg
-          font-bold
-          text-[#B8860B]
-          sm:text-xl
-        "
-      >
-        {number}
-      </p>
-
-      <p
-        className="
-          mt-1
-          text-[9px]
-          font-bold
-          uppercase
-          tracking-wider
-          text-[#858075]
-          sm:text-[10px]
-        "
-      >
-        {label}
-      </p>
-
-    </motion.div>
-   
-  //  Smooth Scroler 
- 
-  );
-}
- <Scroll/>

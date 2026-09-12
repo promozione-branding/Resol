@@ -5,10 +5,141 @@ import Image from "next/image";
 import Link from "next/link";
 import Popup from "./Popup";
 
+/* ============================================================
+   PRODUCTS MEGA MENU DATA
+============================================================ */
+
+const productMegaMenu = [
+  {
+    title: "Polymers",
+    items: [
+      {
+        label: "PVC Resin",
+        href: "/products/pvc-resin",
+      },
+      {
+        label: "Suspension Grade",
+        href: "/products/pvc-resin#suspension-grade",
+      },
+      {
+        label: "Emulsion Grade",
+        href: "/products/pvc-resin#emulsion-grade",
+      },
+      {
+        label: "EVA Resin",
+        href: "/products/eva-resin",
+      },
+      {
+        label: "Polyethylene (PE)",
+        href: "/products/polyethylene-pe",
+      },
+      {
+        label: "Polypropylene (PP)",
+        href: "/products/polypropylene-pp",
+      },
+      {
+        label: "Polystyrene",
+        href: "/products/polystyrene",
+      },
+      {
+        label: "POE",
+        href: "/products/poe",
+      },
+    ],
+  },
+
+  {
+    title: "Minerals & Fillers",
+    items: [
+      {
+        label: "PET Resin",
+        href: "/products/pet-resin",
+      },
+      {
+        label: "Calcium Carbonate",
+        href: "/products/calcium-carbonate",
+      },
+      {
+        label: "Precipitated Calcium",
+        href: "/products/precipitated-calcium",
+      },
+      {
+        label: "Precipitated Silica",
+        href: "/products/precipitated-silica",
+      },
+      {
+        label: "Carbon Black",
+        href: "/products/carbon-black",
+      },
+    ],
+  },
+
+  {
+    title: "Plasticizers & Additives",
+    items: [
+      {
+        label: "DOP",
+        href: "/products/dop",
+      },
+      {
+        label: "DOTP",
+        href: "/products/dotp",
+      },
+      {
+        label: "DINP",
+        href: "/products/dinp",
+      },
+      {
+        label: "Citric Acid",
+        href: "/products/citric-acid",
+      },
+      {
+        label: "Titanium Dioxide",
+        href: "/products/titanium-dioxide",
+      },
+      {
+        label: "Zinc Oxide",
+        href: "/products/zinc-oxide",
+      },
+      {
+        label: "Stearic Acid",
+        href: "/products/stearic-acid",
+      },
+    ],
+  },
+
+  {
+    title: "Rubber & Speciality",
+    items: [
+      {
+        label: "Natural Rubber",
+        href: "/products/natural-rubber",
+      },
+      {
+        label: "Synthetic Rubber",
+        href: "/products/synthetic-rubber",
+      },
+      {
+        label: "Melamine",
+        href: "/products/melamine",
+      },
+      {
+        label: "Zaikai",
+        href: "/products/zaikai",
+      },
+    ],
+  },
+];
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+
 export default function Navbar() {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [search, setSearch] = useState("");
 
   /* ============================================================
@@ -65,6 +196,7 @@ export default function Navbar() {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setMobileProductsOpen(false);
   };
 
   /* ============================================================
@@ -184,7 +316,7 @@ export default function Navbar() {
         ======================================================== */}
 
         <div
-          className={`border-b border-black/10 bg-white/95 backdrop-blur-xl transition-all duration-500 ${
+          className={`relative border-b border-black/10 bg-white/95 backdrop-blur-xl transition-all duration-500 ${
             isScrolled
               ? "py-1 shadow-[0_8px_35px_rgba(0,0,0,0.08)]"
               : "py-2.5"
@@ -219,7 +351,7 @@ export default function Navbar() {
                 DESKTOP NAVIGATION
             ==================================================== */}
 
-            <nav className="hidden items-center gap-1 xl:flex text-2xl">
+            <nav className="hidden items-center gap-1 xl:flex">
 
               <NavItem
                 href="/"
@@ -231,10 +363,137 @@ export default function Navbar() {
                 label="About Us"
               />
 
-              <NavItem
-                href="/products/pvc-resin"
-                label="Products"
-              />
+              {/* ==================================================
+                  PRODUCTS MEGA MENU
+              ================================================== */}
+
+              <div className="group relative">
+
+                {/* PRODUCTS LINK */}
+
+                <Link
+                  href="/products/pvc-resin"
+                  className="relative flex items-center gap-2 px-4 py-4 font-(--font-outfit) text-[15px] font-semibold tracking-[0.2px] text-[#111111] transition-colors duration-300 hover:text-[#D4A017]"
+                >
+                  <span>
+                    Products
+                  </span>
+
+                  {/* CHEVRON */}
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  {/* GOLD UNDERLINE */}
+
+                  <span className="absolute bottom-[7px] left-4 h-[2px] w-0 bg-[#D4A017] transition-all duration-300 group-hover:w-[calc(100%-32px)]" />
+                </Link>
+
+                {/* ==================================================
+                    MEGA MENU
+                ================================================== */}
+
+                <div
+                  className="
+                    pointer-events-none
+                    invisible
+                    absolute
+                    left-1/2
+                    top-full
+                    z-[1000]
+                    w-[1080px]
+                    -translate-x-1/2
+                    translate-y-3
+                    opacity-0
+                    transition-all
+                    duration-300
+                    group-hover:pointer-events-auto
+                    group-hover:visible
+                    group-hover:translate-y-0
+                    group-hover:opacity-100
+                  "
+                >
+
+                  {/* TOP GOLD LINE */}
+
+                  <div className="h-[3px] w-full bg-[#D4A017]" />
+
+                  {/* MENU */}
+
+                  <div className="border border-black/10 bg-white shadow-[0_25px_70px_rgba(0,0,0,0.16)]">
+
+                    {/* HEADER STRIP */}
+
+                    <div className="flex items-center justify-between border-b border-black/10 bg-[#fafafa] px-8 py-5">
+
+                      <div>
+                        <p className="mb-1 text-[9px] font-bold uppercase tracking-[3px] text-[#D4A017]">
+                          Our Product Range
+                        </p>
+
+                        <h3 className="font-(--font-outfit) text-[20px] font-semibold text-[#111111]">
+                          Industrial Materials
+                        </h3>
+                      </div>
+
+                      <Link
+                        href="/products/pvc-resin"
+                        className="group/view flex items-center gap-2 border border-black/15 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[1.5px] text-[#111111] transition-all duration-300 hover:border-[#D4A017] hover:bg-[#D4A017]"
+                      >
+                        <span>
+                          View Products
+                        </span>
+
+                        <span className="text-[#D4A017] transition-transform duration-300 group-hover/view:translate-x-1 group-hover/view:text-[#111111]">
+                          →
+                        </span>
+                      </Link>
+                    </div>
+
+                    {/* ==================================================
+                        FOUR COLUMNS
+                    ================================================== */}
+
+                    <div className="grid grid-cols-4">
+
+                      {productMegaMenu.map((column, index) => (
+                        <MegaMenuColumn
+                          key={column.title}
+                          column={column}
+                          index={index}
+                        />
+                      ))}
+
+                    </div>
+
+                    {/* BOTTOM BAR */}
+
+                    <div className="flex items-center justify-between border-t border-black/10 bg-[#111111] px-8 py-3.5">
+
+                      <span className="text-[9px] font-medium uppercase tracking-[2px] text-white/45">
+                        PVC • Polymers • Additives • Rubber
+                      </span>
+
+                      <span className="text-[9px] font-semibold uppercase tracking-[2px] text-[#D4A017]">
+                        Resol Industries
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <NavItem
                 href="/articles"
@@ -357,139 +616,229 @@ export default function Navbar() {
               </span>
             </button>
           </div>
-        </div>
 
-        {/* ========================================================
-            MOBILE MENU
-        ======================================================== */}
+          {/* ========================================================
+              MOBILE MENU
+          ======================================================== */}
 
-        <div
-          className={`absolute left-0 top-full w-full overflow-hidden border-b border-black/10 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-all duration-500 xl:hidden ${
-            isMenuOpen
-              ? "visible max-h-[700px] opacity-100"
-              : "invisible max-h-0 opacity-0"
-          }`}
-        >
-          <div className="px-5 pb-7 pt-5 sm:px-8">
+          <div
+            className={`absolute left-0 top-full w-full overflow-hidden border-b border-black/10 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-all duration-500 xl:hidden ${
+              isMenuOpen
+                ? "visible max-h-[900px] opacity-100"
+                : "invisible max-h-0 opacity-0"
+            }`}
+          >
 
-            {/* MOBILE SEARCH */}
+            <div className="max-h-[calc(100vh-80px)] overflow-y-auto px-5 pb-7 pt-5 sm:px-8">
 
-            <form
-              onSubmit={handleSearch}
-              className="mb-5 flex h-[48px] border border-black/15"
-            >
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search products..."
-                className="min-w-0 flex-1 bg-transparent px-4 text-sm text-black outline-none placeholder:text-black/35"
-              />
+              {/* MOBILE SEARCH */}
+
+              <form
+                onSubmit={handleSearch}
+                className="mb-5 flex h-[48px] border border-black/15"
+              >
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search products..."
+                  className="min-w-0 flex-1 bg-transparent px-4 text-sm text-black outline-none placeholder:text-black/35"
+                />
+
+                <button
+                  type="submit"
+                  aria-label="Search"
+                  className="flex w-[52px] items-center justify-center border-l border-black/10 text-black/60"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-[18px] w-[18px]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="7"
+                      strokeWidth="1.7"
+                    />
+
+                    <path
+                      d="M16 16L21 21"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </form>
+
+              {/* ==================================================
+                  MOBILE LINKS
+              ================================================== */}
+
+              <nav className="flex flex-col">
+
+                <MobileNavItem
+                  href="/"
+                  label="Home"
+                  onClick={closeMenu}
+                />
+
+                <MobileNavItem
+                  href="/about-us"
+                  label="About Us"
+                  onClick={closeMenu}
+                />
+
+                {/* MOBILE PRODUCTS */}
+
+                <div className="border-b border-black/10">
+
+                  <div className="flex items-center justify-between">
+
+                    <Link
+                      href="/products/pvc-resin"
+                      onClick={closeMenu}
+                      className="flex-1 py-[17px] text-[14px] font-semibold text-[#111111] transition-colors duration-300 hover:text-[#D4A017]"
+                    >
+                      Products
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileProductsOpen(
+                          !mobileProductsOpen
+                        )
+                      }
+                      aria-label="Toggle products"
+                      aria-expanded={mobileProductsOpen}
+                      className="flex h-[50px] w-[50px] items-center justify-center text-black/40 transition-colors hover:text-[#D4A017]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        className={`h-4 w-4 transition-transform duration-300 ${
+                          mobileProductsOpen
+                            ? "rotate-180"
+                            : ""
+                        }`}
+                      >
+                        <path
+                          d="m6 9 6 6 6-6"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  {/* MOBILE PRODUCTS CONTENT */}
+
+                  <div
+                    className={`overflow-hidden transition-all duration-500 ${
+                      mobileProductsOpen
+                        ? "max-h-[800px] pb-4 opacity-100"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+
+                    <div className="border-l-2 border-[#D4A017] bg-[#fafafa]">
+
+                      {productMegaMenu.map((column) => (
+                        <div
+                          key={column.title}
+                          className="px-4 py-4"
+                        >
+
+                          <p className="mb-2 text-[10px] font-bold uppercase tracking-[2px] text-[#D4A017]">
+                            {column.title}
+                          </p>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2">
+
+                            {column.items.map((item) => (
+                              <Link
+                                key={item.label}
+                                href={item.href}
+                                onClick={closeMenu}
+                                className="group flex items-center gap-2 border-b border-black/5 py-2.5 pr-3 text-[12px] font-medium text-black/65 transition-colors hover:text-[#D4A017]"
+                              >
+                                <span className="h-[3px] w-[3px] bg-black/25 transition-all duration-300 group-hover:w-[7px] group-hover:bg-[#D4A017]" />
+
+                                {item.label}
+                              </Link>
+                            ))}
+
+                          </div>
+                        </div>
+                      ))}
+
+                    </div>
+                  </div>
+                </div>
+
+                <MobileNavItem
+                  href="/articles"
+                  label="Articles"
+                  onClick={closeMenu}
+                />
+
+                <MobileNavItem
+                  href="/contact-us"
+                  label="Contact Us"
+                  onClick={closeMenu}
+                />
+
+              </nav>
+
+              {/* MOBILE QUOTE */}
 
               <button
-                type="submit"
-                aria-label="Search"
-                className="flex w-[52px] items-center justify-center border-l border-black/10 text-black/60"
+                type="button"
+                onClick={openQuote}
+                className="group mt-6 flex w-full items-center justify-center gap-4 bg-[#D4A017] px-5 py-4 text-[11px] font-bold uppercase tracking-[2px] text-[#111111] transition duration-300 hover:bg-[#B8860B] hover:text-white"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-[18px] w-[18px]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="7"
-                    strokeWidth="1.7"
-                  />
+                <span>
+                  Get a Quote
+                </span>
 
-                  <path
-                    d="M16 16L21 21"
-                    strokeWidth="1.7"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <span className="text-lg transition-transform duration-300 group-hover:translate-x-1.5">
+                  →
+                </span>
               </button>
-            </form>
 
-            {/* MOBILE LINKS */}
+              {/* MOBILE CONTACT */}
 
-            <nav className="flex flex-col">
+              <div className="mt-6 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:grid-cols-2">
 
-              <MobileNavItem
-                href="/"
-                label="Home"
-                onClick={closeMenu}
-              />
+                <a
+                  href="tel:+911141417725"
+                  className="text-[11px] font-medium text-black/55 transition hover:text-[#D4A017]"
+                >
+                  <span className="mb-1 block text-[9px] uppercase tracking-[2px] text-black/35">
+                    Call Us
+                  </span>
 
-              <MobileNavItem
-                href="/about-us"
-                label="About Us"
-                onClick={closeMenu}
-              />
+                  +91-11-41417725
+                </a>
 
-              <MobileNavItem
-                href="/products/pvc-resin"
-                label="Products"
-                onClick={closeMenu}
-              />
+                <a
+                  href="mailto:info@resolvinyls.com"
+                  className="text-[11px] font-medium text-black/55 transition hover:text-[#D4A017]"
+                >
+                  <span className="mb-1 block text-[9px] uppercase tracking-[2px] text-black/35">
+                    Email Us
+                  </span>
 
-              <MobileNavItem
-                href="/articles"
-                label="Articles"
-                onClick={closeMenu}
-              />
+                  info@resolvinyls.com
+                </a>
 
-              <MobileNavItem
-                href="/contact-us"
-                label="Contact Us"
-                onClick={closeMenu}
-              />
-            </nav>
-
-            {/* MOBILE QUOTE */}
-
-            <button
-              type="button"
-              onClick={openQuote}
-              className="group mt-6 flex w-full items-center justify-center gap-4 bg-[#D4A017] px-5 py-4 text-[11px] font-bold uppercase tracking-[2px] text-[#111111] transition duration-300 hover:bg-[#B8860B] hover:text-white"
-            >
-              <span>
-                Get a Quote
-              </span>
-
-              <span className="text-lg transition-transform duration-300 group-hover:translate-x-1.5">
-                →
-              </span>
-            </button>
-
-            {/* MOBILE CONTACT */}
-
-            <div className="mt-6 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:grid-cols-2">
-
-              <a
-                href="tel:+911141417725"
-                className="text-[11px] font-medium text-black/55 transition hover:text-[#D4A017]"
-              >
-                <span className="mb-1 block text-[9px] uppercase tracking-[2px] text-black/35">
-                  Call Us
-                </span>
-
-                +91-11-41417725
-              </a>
-
-              <a
-                href="mailto:info@resolvinyls.com"
-                className="text-[11px] font-medium text-black/55 transition hover:text-[#D4A017]"
-              >
-                <span className="mb-1 block text-[9px] uppercase tracking-[2px] text-black/35">
-                  Email Us
-                </span>
-
-                info@resolvinyls.com
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -504,6 +853,66 @@ export default function Navbar() {
         onClose={() => setQuoteOpen(false)}
       />
     </>
+  );
+}
+
+/* ================================================================
+   MEGA MENU COLUMN
+================================================================ */
+
+function MegaMenuColumn({ column, index }) {
+  return (
+    <div
+      className={`min-h-[255px] px-6 py-6 lg:px-7 ${
+        index !== 0
+          ? "border-l border-black/10"
+          : ""
+      }`}
+    >
+
+      {/* COLUMN TITLE */}
+
+      <div className="mb-4">
+
+        <div className="mb-2 flex items-center gap-2">
+
+          <span className="h-[1px] w-5 bg-[#D4A017]" />
+
+          <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#D4A017]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+        </div>
+
+        <h4 className="font-(--font-outfit) text-[16px] font-semibold leading-tight text-[#111111]">
+          {column.title}
+        </h4>
+      </div>
+
+      {/* ITEMS */}
+
+      <div className="flex flex-col">
+
+        {column.items.map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
+            className="group flex items-center gap-2 border-b border-black/8 py-[8px] text-[12px] font-medium text-black/65 transition-all duration-300 hover:pl-1 hover:text-[#D4A017]"
+          >
+            <span className="h-[3px] w-[3px] shrink-0 bg-black/25 transition-all duration-300 group-hover:w-[7px] group-hover:bg-[#D4A017]" />
+
+            <span>
+              {item.label}
+            </span>
+
+            <span className="ml-auto translate-x-[-4px] text-[11px] text-[#D4A017] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+              →
+            </span>
+          </Link>
+        ))}
+
+      </div>
+    </div>
   );
 }
 
