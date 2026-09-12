@@ -566,7 +566,7 @@ export default function Navbar() {
                 width={170}
                 height={65}
                 priority
-                className={`h-auto w-[145px] object-contain ${
+                className={`h-auto w-[60px] object-contain ${
                   productsOpen
                     ? "brightness-0 invert"
                     : ""
