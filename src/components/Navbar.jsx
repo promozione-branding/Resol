@@ -9,6 +9,11 @@ import Popup from "./Popup";
    PRODUCTS MEGA MENU DATA
 ============================================================ */
 
+/* ============================================================
+   PRODUCTS MEGA MENU DATA
+   EXACT CATEGORY + SUBCATEGORY AS PER DESIGN
+============================================================ */
+
 const productMegaMenu = [
   {
     title: "Polymers",
@@ -18,11 +23,11 @@ const productMegaMenu = [
         href: "/products/pvc-resin",
       },
       {
-        label: "Suspension Grade",
+        label: "-- Suspension Grade",
         href: "/products/pvc-resin#suspension-grade",
       },
       {
-        label: "Emulsion Grade",
+        label: "-- Emulsion Grade",
         href: "/products/pvc-resin#emulsion-grade",
       },
       {
@@ -49,11 +54,21 @@ const productMegaMenu = [
   },
 
   {
-    title: "Minerals & Fillers",
+    title: "",
     items: [
       {
-        label: "PET Resin",
+        label: "Pet Resin",
         href: "/products/pet-resin",
+        category: true,
+      },
+      {
+        label: "Pet Resin",
+        href: "/products/pet-resin",
+      },
+      {
+        label: "Calcium Carbonate",
+        href: "/products/calcium-carbonate",
+        category: true,
       },
       {
         label: "Calcium Carbonate",
@@ -64,19 +79,30 @@ const productMegaMenu = [
         href: "/products/precipitated-calcium",
       },
       {
-        label: "Precipitated Silica",
-        href: "/products/precipitated-silica",
-      },
-      {
-        label: "Carbon Black",
-        href: "/products/carbon-black",
+        label: "Zaikai",
+        href: "/products/zaikai",
+        category: true,
       },
     ],
   },
 
   {
-    title: "Plasticizers & Additives",
+    title: "",
     items: [
+      {
+        label: "Citric Acid",
+        href: "/products/citric-acid",
+        category: true,
+      },
+      {
+        label: "Citric Acid",
+        href: "/products/citric-acid",
+      },
+      {
+        label: "Plasticizers",
+        href: "/products/plasticizers",
+        category: true,
+      },
       {
         label: "DOP",
         href: "/products/dop",
@@ -90,42 +116,49 @@ const productMegaMenu = [
         href: "/products/dinp",
       },
       {
-        label: "Citric Acid",
-        href: "/products/citric-acid",
+        label: "Natural & Synthetic Rubber",
+        href: "/products/natural-synthetic-rubber",
+        category: true,
+      },
+    ],
+  },
+
+  {
+    title: "",
+    items: [
+      {
+        label: "Fillers, Activators & Colourants",
+        href: "/products/fillers-activators-colourants",
+        category: true,
       },
       {
-        label: "Titanium Dioxide",
-        href: "/products/titanium-dioxide",
+        label: "Precipitated Silica",
+        href: "/products/precipitated-silica",
+      },
+      {
+        label: "Carbon Black",
+        href: "/products/carbon-black",
       },
       {
         label: "Zinc Oxide",
         href: "/products/zinc-oxide",
       },
       {
+        label: "Titanium Dioxide",
+        href: "/products/titanium-dioxide",
+      },
+      {
         label: "Stearic Acid",
         href: "/products/stearic-acid",
-      },
-    ],
-  },
-
-  {
-    title: "Rubber & Speciality",
-    items: [
-      {
-        label: "Natural Rubber",
-        href: "/products/natural-rubber",
-      },
-      {
-        label: "Synthetic Rubber",
-        href: "/products/synthetic-rubber",
       },
       {
         label: "Melamine",
         href: "/products/melamine",
+        category: true,
       },
       {
-        label: "Zaikai",
-        href: "/products/zaikai",
+        label: "Melamine",
+        href: "/products/melamine",
       },
     ],
   },
@@ -428,7 +461,7 @@ export default function Navbar() {
 
                   {/* TOP GOLD LINE */}
 
-                  <div className="h-[3px] w-full bg-[#D4A017]" />
+                  <div className="h-[1px] w-full bg-[#D4A017]" />
 
                   {/* MENU */}
 
@@ -438,28 +471,8 @@ export default function Navbar() {
 
                     <div className="flex items-center justify-between border-b border-black/10 bg-[#fafafa] px-8 py-5">
 
-                      <div>
-                        <p className="mb-1 text-[9px] font-bold uppercase tracking-[3px] text-[#D4A017]">
-                          Our Product Range
-                        </p>
 
-                        <h3 className="font-(--font-outfit) text-[20px] font-semibold text-[#111111]">
-                          Industrial Materials
-                        </h3>
-                      </div>
-
-                      <Link
-                        href="/products/pvc-resin"
-                        className="group/view flex items-center gap-2 border border-black/15 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[1.5px] text-[#111111] transition-all duration-300 hover:border-[#D4A017] hover:bg-[#D4A017]"
-                      >
-                        <span>
-                          View Products
-                        </span>
-
-                        <span className="text-[#D4A017] transition-transform duration-300 group-hover/view:translate-x-1 group-hover/view:text-[#111111]">
-                          →
-                        </span>
-                      </Link>
+                     
                     </div>
 
                     {/* ==================================================
@@ -863,53 +876,50 @@ export default function Navbar() {
 function MegaMenuColumn({ column, index }) {
   return (
     <div
-      className={`min-h-[255px] px-6 py-6 lg:px-7 ${
-        index !== 0
-          ? "border-l border-black/10"
-          : ""
+      className={`min-h-[300px] px-6 py-6 lg:px-7 ${
+        index !== 0 ? "border-l border-black/10" : ""
       }`}
     >
-
-      {/* COLUMN TITLE */}
-
-      <div className="mb-4">
-
-        <div className="mb-2 flex items-center gap-2">
-
-          <span className="h-[1px] w-5 bg-[#D4A017]" />
-
-          <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#D4A017]">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
-        </div>
-
-        <h4 className="font-(--font-outfit) text-[16px] font-semibold leading-tight text-[#111111]">
-          {column.title}
-        </h4>
-      </div>
-
-      {/* ITEMS */}
-
       <div className="flex flex-col">
 
-        {column.items.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="group flex items-center gap-2 border-b border-black/8 py-[8px] text-[12px] font-medium text-black/65 transition-all duration-300 hover:pl-1 hover:text-[#D4A017]"
-          >
-            <span className="h-[3px] w-[3px] shrink-0 bg-black/25 transition-all duration-300 group-hover:w-[7px] group-hover:bg-[#D4A017]" />
+        {column.items.map((item, itemIndex) => {
 
-            <span>
-              {item.label}
-            </span>
+          /* ======================================================
+             CATEGORY HEADING
+          ====================================================== */
 
-            <span className="ml-auto translate-x-[-4px] text-[11px] text-[#D4A017] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-              →
-            </span>
-          </Link>
-        ))}
+          if (item.category) {
+            return (
+              <div
+                key={`${item.label}-${itemIndex}`}
+                className="mb-1 mt-3 first:mt-0"
+              >
+                <Link
+                  href={item.href}
+                  className="block font-(--font-outfit) text-[16px] font-semibold leading-[1.25] text-[#D4A017] transition-colors duration-300 hover:text-[#D4A017]"
+                >
+                  {item.label}
+                </Link>
+              </div>
+            );
+          }
+
+          /* ======================================================
+             SUBCATEGORY / PRODUCT
+          ====================================================== */
+
+          return (
+            <Link
+              key={`${item.label}-${itemIndex}`}
+              href={item.href}
+              className="group flex items-center border-b border-black/10 py-[8px] text-[12px] font-medium text-[#444444] transition-all duration-300 hover:pl-1 hover:text-[#D4A017]"
+            >
+              <span className="transition-colors duration-300">
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
 
       </div>
     </div>
