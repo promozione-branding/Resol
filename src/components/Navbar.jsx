@@ -1,1536 +1,513 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
-import Popup from "./Popup";
+import { useEffect, useRef, useState } from "react";
+import Popup from "@/components/Popup";
 
-/* ============================================================
-   PRODUCT MEGA MENU DATA
-   ONLY YOUR EXISTING CATEGORIES / SUB-CATEGORIES
-============================================================ */
-
-const productMegaMenu = [
-  {
-    title: "Polymers",
-    items: [
-      {
-        label: "PVC Resin",
-        href: "/products/pvc-resin",
-      },
-      {
-        label: "-- Suspension Grade",
-        href: "/products/pvc-resin#suspension-grade",
-      },
-      {
-        label: "-- Emulsion Grade",
-        href: "/products/pvc-resin#emulsion-grade",
-      },
-      {
-        label: "EVA Resin",
-        href: "/products/eva-resin",
-      },
-      {
-        label: "Polyethylene (PE)",
-        href: "/products/polyethylene-pe",
-      },
-      {
-        label: "Polypropylene (PP)",
-        href: "/products/polypropylene-pp",
-      },
-      {
-        label: "Polystyrene",
-        href: "/products/polystyrene",
-      },
-      {
-        label: "POE",
-        href: "/products/poe",
-      },
-    ],
-  },
-
-  {
-    title: "",
-    items: [
-      {
-        label: "Pet Resin",
-        href: "/products/pet-resin",
-        category: true,
-      },
-      {
-        label: "Pet Resin",
-        href: "/products/pet-resin",
-      },
-
-      {
-        label: "Calcium Carbonate",
-        href: "/products/calcium-carbonate",
-        category: true,
-      },
-      {
-        label: "Calcium Carbonate",
-        href: "/products/calcium-carbonate",
-      },
-      {
-        label: "Precipitated Calcium",
-        href: "/products/precipitated-calcium",
-      },
-
-      {
-        label: "Zaikai",
-        href: "/products/zaikai",
-        category: true,
-      },
-    ],
-  },
-
-  {
-    title: "",
-    items: [
-      {
-        label: "Citric Acid",
-        href: "/products/citric-acid",
-        category: true,
-      },
-      {
-        label: "Citric Acid",
-        href: "/products/citric-acid",
-      },
-
-      {
-        label: "Plasticizers",
-        href: "/products/plasticizers",
-        category: true,
-      },
-      {
-        label: "DOP",
-        href: "/products/dop",
-      },
-      {
-        label: "DOTP",
-        href: "/products/dotp",
-      },
-      {
-        label: "DINP",
-        href: "/products/dinp",
-      },
-
-      {
-        label: "Natural & Synthetic Rubber",
-        href: "/products/natural-synthetic-rubber",
-        category: true,
-      },
-    ],
-  },
-
-  {
-    title: "",
-    items: [
-      {
-        label: "Fillers, Activators & Colourants",
-        href: "/products/fillers-activators-colourants",
-        category: true,
-      },
-      {
-        label: "Precipitated Silica",
-        href: "/products/precipitated-silica",
-      },
-      {
-        label: "Carbon Black",
-        href: "/products/carbon-black",
-      },
-      {
-        label: "Zinc Oxide",
-        href: "/products/zinc-oxide",
-      },
-      {
-        label: "Titanium Dioxide",
-        href: "/products/titanium-dioxide",
-      },
-      {
-        label: "Stearic Acid",
-        href: "/products/stearic-acid",
-      },
-
-      {
-        label: "Melamine",
-        href: "/products/melamine",
-        category: true,
-      },
-      {
-        label: "Melamine",
-        href: "/products/melamine",
-      },
-    ],
-  },
-];
-
-/* ============================================================
-   CATEGORY IMAGES
-============================================================ */
-
-const categoryImages = {
-  Polymers: "/Polymers.webp",
-  "Pet Resin": "/banner2 (8).webp",
-  "Calcium Carbonate": "/calcium.webp",
-  Zaikai: "/pvc resin.webp",
-  "Citric Acid": "/banner 3 (7).webp",
-  Plasticizers: "/pvc resin.webp",
-  "Natural & Synthetic Rubber":
-    "/Polystyrene banner.webp",
-  "Fillers, Activators & Colourants":
-    "/calcium.webp",
-  Melamine: "/pvc (4).webp",
-};
-
-/* ============================================================
-   SUB CATEGORY IMAGES
-============================================================ */
-
-const subCategoryImages = {
-  "pvc-resin": "/pvc resin.webp",
-  "suspension-grade": "/pvc resin.webp",
-  "emulsion-grade": "/pvc resin.webp",
-
-  "eva-resin": "/pvc (4).webp",
-  "polyethylene-pe": "/banner2 (8).webp",
-  "polypropylene-pp": "/banner2 (8).webp",
-  polystyrene: "/Polystyrene banner.webp",
-  poe: "/Polymers.webp",
-
-  "pet-resin": "/banner2 (8).webp",
-
-  "calcium-carbonate": "/calcium.webp",
-  "precipitated-calcium": "/calcium.webp",
-
-  zaikai: "/pvc resin.webp",
-
-  "citric-acid": "/banner 3 (7).webp",
-
-  dop: "/pvc resin.webp",
-  dotp: "/pvc resin.webp",
-  dinp: "/pvc resin.webp",
-
-  "natural-synthetic-rubber":
-    "/Polystyrene banner.webp",
-
-  "precipitated-silica": "/calcium.webp",
-  "carbon-black": "/Polymers.webp",
-  "zinc-oxide": "/calcium.webp",
-  "titanium-dioxide": "/pvc (4).webp",
-  "stearic-acid": "/calcium.webp",
-
-  melamine: "/pvc (4).webp",
-};
-
-/* ============================================================
-   IMAGE HELPERS
-============================================================ */
-
-const getItemKey = (item) => {
-  const href = item?.href || "";
-
-  if (href.includes("#")) {
-    return href.split("#")[1];
-  }
-
-  return href.split("/").filter(Boolean).pop() || "";
-};
-
-const getItemImage = (item) => {
-  const key = getItemKey(item);
-
-  return (
-    subCategoryImages[key] ||
-    categoryImages[item?.label] ||
-    "/pvc resin.webp"
-  );
-};
-
-/* ============================================================
-   BUILD CATEGORY STRUCTURE
-============================================================ */
-
-function buildProductCategories() {
-  const categories = [];
-
-  /* ---------------- POLYMERS ---------------- */
-
-  const polymers = productMegaMenu[0];
-
-  categories.push({
-    title: polymers.title,
-    href: polymers.items[0]?.href || "/products",
-    image:
-      categoryImages[polymers.title] ||
-      "/Polymers.webp",
-    items: polymers.items,
-  });
-
-  /* ---------------- OTHER CATEGORIES ---------------- */
-
-  productMegaMenu.slice(1).forEach((column) => {
-    let currentCategory = null;
-
-    column.items.forEach((item) => {
-      if (item.category) {
-        currentCategory = {
-          title: item.label,
-          href: item.href,
-          image:
-            categoryImages[item.label] ||
-            getItemImage(item),
-          items: [],
-        };
-
-        categories.push(currentCategory);
-      } else if (currentCategory) {
-        currentCategory.items.push(item);
-      }
-    });
-  });
-
-  return categories;
-}
-
-const productCategories = buildProductCategories();
-
-/* ============================================================
-   IMAGE COMPONENT
-============================================================ */
-
-function MenuImage({
-  src,
-  alt,
-  className = "",
-  sizes = "400px",
-}) {
-  const [imageSrc, setImageSrc] = useState(
-    src || "/pvc resin.webp"
-  );
-
-  useEffect(() => {
-    setImageSrc(src || "/pvc resin.webp");
-  }, [src]);
-
-  return (
-    <Image
-      src={imageSrc}
-      alt={alt || ""}
-      fill
-      sizes={sizes}
-      className={className}
-      onError={() => {
-        if (imageSrc !== "/pvc resin.webp") {
-          setImageSrc("/pvc resin.webp");
-        }
-      }}
-    />
-  );
-}
-
-/* ============================================================
-   NAVIGATION
-============================================================ */
-
-const navigation = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "About Us",
-    href: "/about-us",
-  },
-  {
-    label: "Products",
-    href: "/products/pvc-resin",
-    mega: true,
-  },
-  {
-    label: "Articles",
-    href: "/articles",
-  },
-  {
-    label: "Contact Us",
-    href: "/contact-us",
-  },
-];
-
-/* ============================================================
+/* ================================================================
    NAVBAR
-============================================================ */
+================================================================ */
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [productsOpen, setProductsOpen] =
-    useState(false);
-  const [mobileOpen, setMobileOpen] =
-    useState(false);
-  const [searchOpen, setSearchOpen] =
-    useState(false);
-  const [searchValue, setSearchValue] =
-    useState("");
-  const [isScrolled, setIsScrolled] =
-    useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
-  const [activeMegaCategory, setActiveMegaCategory] =
-    useState(0);
+  const megaCloseTimer = useRef(null);
 
-  const [mobileProductOpen, setMobileProductOpen] =
-    useState(false);
-
-  /* ==========================================================
+  /* ==============================================================
      SCROLL
-  ========================================================== */
+  ============================================================== */
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 20);
     };
 
     handleScroll();
 
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  /* ==========================================================
-     MOBILE BODY LOCK
-  ========================================================== */
+  /* ==============================================================
+     MEGA MENU
+  ============================================================== */
+
+  const openMegaMenu = () => {
+    if (megaCloseTimer.current) {
+      clearTimeout(megaCloseTimer.current);
+    }
+
+    setMegaMenuOpen(true);
+  };
+
+  const closeMegaMenu = () => {
+    if (megaCloseTimer.current) {
+      clearTimeout(megaCloseTimer.current);
+    }
+
+    megaCloseTimer.current = setTimeout(() => {
+      setMegaMenuOpen(false);
+    }, 180);
+  };
+
+  const cancelMegaClose = () => {
+    if (megaCloseTimer.current) {
+      clearTimeout(megaCloseTimer.current);
+    }
+  };
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen
-      ? "hidden"
-      : "";
-
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
-
-  /* ==========================================================
-     ESC KEY
-  ========================================================== */
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setProductsOpen(false);
-        setSearchOpen(false);
-        setMobileOpen(false);
+      if (megaCloseTimer.current) {
+        clearTimeout(megaCloseTimer.current);
       }
     };
-
-    window.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
-
-    return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
-    };
   }, []);
 
-  /* ==========================================================
+  /* ==============================================================
      SEARCH
-  ========================================================== */
+  ============================================================== */
 
-  const handleSearch = (event) => {
-    event.preventDefault();
+  const handleSearch = (e) => {
+    e.preventDefault();
 
     const value = searchValue.trim();
 
     if (!value) return;
 
-    window.location.href =
-      `/search?q=${encodeURIComponent(value)}`;
+    window.location.href = `/search?q=${encodeURIComponent(value)}`;
   };
 
-  /* ==========================================================
-     OPEN PRODUCTS
-  ========================================================== */
+  /* ==============================================================
+     MOBILE
+  ============================================================== */
 
-  const openProductsMenu = () => {
-    setProductsOpen(true);
-    setSearchOpen(false);
-    setMobileOpen(false);
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
-
-  /* ==========================================================
-     ACTIVE CATEGORY
-  ========================================================== */
-
-  const activeCategory =
-    productCategories[activeMegaCategory] ||
-    productCategories[0];
-
-  /* ==========================================================
-     RENDER
-  ========================================================== */
 
   return (
     <>
-      {/* ======================================================
-          TOP BAR
-      ====================================================== */}
+      {/* ============================================================
+          HEADER
+      ============================================================ */}
 
-      <AnimatePresence>
-        {!isScrolled && (
-          <motion.div
-            initial={{
-              y: -30,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-            }}
-            exit={{
-              y: -30,
-              opacity: 0,
-            }}
-            className="fixed left-0 top-0 z-[1000] hidden w-full bg-black text-white lg:block"
-          >
-            <div className="mx-auto flex h-[34px] max-w-[1500px] items-center justify-between px-6 text-[10px] uppercase tracking-[0.22em]">
-              <div>
-                Resol Industries Ltd.
-              </div>
+      <header className="fixed left-0 top-0 z-[999] w-full">
 
-              <div className="flex items-center gap-6">
-                <a
-                  href="tel:+911141417725"
-                  className="transition-colors hover:text-[#D4A017]"
-                >
-                  +91 11-41417725
-                </a>
+        {/* ========================================================
+            TOP CONTACT BAR
+        ======================================================== */}
 
-                <a
-                  href="mailto:info@resolvinyls.com"
-                  className="transition-colors hover:text-[#D4A017]"
-                >
-                  info@resolvinyls.com
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ======================================================
-          MAIN HEADER
-      ====================================================== */}
-
-      <header
-        className={`fixed left-0 z-[1001] w-full transition-all duration-300 ${
-          isScrolled
-            ? "top-0"
-            : "top-0 lg:top-[34px]"
-        }`}
-      >
         <div
-          className={`border-b transition-all duration-300 ${
-            productsOpen
-              ? "border-[#D4A017]/40 bg-black"
-              : "border-black/10 bg-white/95 backdrop-blur-xl"
+          className={`hidden overflow-hidden bg-[#111111] transition-all duration-300 lg:block ${
+            isScrolled
+              ? "h-0 opacity-0"
+              : "h-[10px] opacity-100"
           }`}
         >
-          <div className="mx-auto flex h-[76px] max-w-[1500px] items-center justify-between px-5 sm:px-7 lg:px-10">
+          <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6">
 
-            {/* LOGO */}
+            <div className="flex items-center gap-6">
+
+              <a
+                href="tel:+911141417725"
+                className="text-[13px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
+              >
+                +91-11-41417725
+              </a>
+
+              <a
+                href="mailto:info@resolvinyls.com"
+                className="text-[13px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
+              >
+                info@resolvinyls.com
+              </a>
+
+            </div>
+
+            <div className="flex items-center gap-4">
+
+              <span className="text-[12px] uppercase tracking-[1.5px] text-white/30">
+                Follow us
+              </span>
+
+              <a
+                href="#"
+                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
+              >
+                IN
+              </a>
+
+              <a
+                href="#"
+                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
+              >
+                IG
+              </a>
+
+              <a
+                href="#"
+                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
+              >
+                YT
+              </a>
+
+            </div>
+
+          </div>
+        </div>
+
+        {/* ========================================================
+            MAIN NAVIGATION
+        ======================================================== */}
+
+        <div
+          className={`border-b transition-all duration-300 ${
+            isScrolled
+              ? "border-black/10 bg-white/95 shadow-[0_10px_35px_rgba(0,0,0,0.08)] backdrop-blur-xl"
+              : "border-black/5 bg-white"
+          }`}
+        >
+
+          <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 sm:px-6 lg:px-8">
+
+            {/* ======================================================
+                LOGO
+            ====================================================== */}
 
             <Link
               href="/"
-              onClick={() => {
-                setProductsOpen(false);
-                setMobileOpen(false);
-              }}
-              className="relative z-[1003] shrink-0"
+              className="relative z-[1002] flex shrink-0 items-center"
             >
               <Image
                 src="/New-Project-6-e1775111050628.webp"
                 alt="Resol Industries"
-                width={170}
-                height={65}
+                width={270}
+                height={130}
                 priority
-                className={`h-auto w-[60px] object-contain ${
-                  productsOpen
-                    ? "brightness-0 invert"
-                    : ""
+                className={`w-auto object-contain transition-all duration-300 ${
+                  isScrolled ? "h-[45px]" : "h-[57px]"
                 }`}
               />
             </Link>
 
-            {/* DESKTOP NAV */}
+            {/* ======================================================
+                DESKTOP NAV
+            ====================================================== */}
 
-            <nav className="hidden items-center gap-7 xl:flex">
-              {navigation.map((item) => (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => {
-                    if (item.mega) {
-                      openProductsMenu();
-                    }
-                  }}
+            <nav className="hidden items-center lg:flex">
+
+              <NavItem href="/">
+                Home
+              </NavItem>
+
+              <NavItem href="/about-us">
+                About Us
+              </NavItem>
+
+              {/* ==================================================
+                  PRODUCTS
+              ================================================== */}
+
+              <div
+                className="relative"
+                onMouseEnter={openMegaMenu}
+                onMouseLeave={closeMegaMenu}
+              >
+
+                <button
+                  type="button"
+                  onFocus={openMegaMenu}
+                  className={`group relative flex items-center gap-2 px-4 py-4 text-[15px] font-semibold tracking-[0.2px] transition-colors duration-300 ${
+                    megaMenuOpen
+                      ? "text-[#B8860B]"
+                      : "text-[#111111] hover:text-[#B8860B]"
+                  }`}
                 >
-                  <Link
-                    href={item.href}
-                    onClick={() => {
-                      if (item.mega) {
-                        setProductsOpen(false);
-                      }
-                    }}
-                    className={`group relative flex items-center gap-2 py-7 text-[13px] font-medium uppercase tracking-[0.12em] transition-colors ${
-                      productsOpen
-                        ? "text-white"
-                        : "text-black"
+
+                  <span>
+                    Products
+                  </span>
+
+                  <svg
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    className={`transition-transform duration-300 ${
+                      megaMenuOpen ? "rotate-180" : ""
                     }`}
                   >
-                    {item.label}
+                    <path
+                      d="M1 1L5 5L9 1"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
 
-                    {item.mega && (
-                      <span
-                        className={`h-[5px] w-[5px] rotate-45 border-r border-t ${
-                          productsOpen
-                            ? "border-[#D4A017]"
-                            : "border-black"
-                        }`}
-                      />
-                    )}
+                  <span
+                    className={`absolute bottom-[7px] left-4 right-4 h-[1.5px] origin-left bg-[#D4A017] transition-transform duration-300 ${
+                      megaMenuOpen
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
 
-                    <span className="absolute bottom-[17px] left-0 h-[1px] w-0 bg-[#D4A017] transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                </div>
-              ))}
+                </button>
+
+                <MegaMenu
+                  isOpen={megaMenuOpen}
+                  isScrolled={isScrolled}
+                  onMouseEnter={cancelMegaClose}
+                  onMouseLeave={closeMegaMenu}
+                />
+
+              </div>
+
+              <NavItem href="/articles">
+                Articles
+              </NavItem>
+
+              <NavItem href="/contact-us">
+                Contact Us
+              </NavItem>
+
             </nav>
 
-            {/* RIGHT ACTIONS */}
+            {/* ======================================================
+                DESKTOP ACTIONS
+            ====================================================== */}
 
             <div className="hidden items-center gap-3 lg:flex">
 
               {/* SEARCH */}
 
-              <button
-                type="button"
-                aria-label="Search"
-                onClick={() => {
-                  setSearchOpen(
-                    (prev) => !prev
-                  );
-                  setProductsOpen(false);
-                }}
-                className={`flex h-[42px] w-[42px] items-center justify-center border transition ${
-                  productsOpen
-                    ? "border-white/20 text-white"
-                    : "border-black/10 text-black"
-                }`}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
+              <div className="relative">
+
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen((prev) => !prev)}
+                  className="flex h-10 w-10 items-center justify-center text-[#111111] transition-colors hover:text-[#B8860B]"
+                  aria-label="Search"
                 >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="7"
-                  />
-                  <path d="m20 20-4-4" />
-                </svg>
-              </button>
+                  <SearchIcon />
+                </button>
+
+                {searchOpen && (
+                  <form
+                    onSubmit={handleSearch}
+                    className="absolute right-0 top-[410px] flex w-[280px] overflow-hidden border border-black/10 bg-white p-1.5 shadow-[0_15px_45px_rgba(0,0,0,0.12)]"
+                  >
+
+                    <input
+                      type="text"
+                      autoFocus
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      placeholder="Search products..."
+                      className="min-w-0 flex-1 bg-transparent px-3 py-2 text-[12px] text-black outline-none placeholder:text-black/30"
+                    />
+
+                    <button
+                      type="submit"
+                      className="flex w-10 items-center justify-center bg-[#D4A017] text-black transition-colors hover:bg-[#B8860B]"
+                    >
+                      →
+                    </button>
+
+                  </form>
+                )}
+
+              </div>
 
               {/* QUOTE */}
 
               <button
                 type="button"
-                onClick={() => {
-                  setQuoteOpen(true);
-                  setProductsOpen(false);
-                }}
-                className="flex h-[42px] items-center gap-3 bg-[#D4A017] px-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-black transition hover:bg-[#B8860B]"
+                onClick={() => setQuoteOpen(true)}
+                className="bg-[#111111] px-5 py-3 text-[13px] font-bold uppercase tracking-[1.4px] text-white transition-all duration-300 hover:bg-[#D4A017] hover:text-black"
               >
                 Get a Quote
-
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m13 6 6 6-6 6" />
-                </svg>
               </button>
+
             </div>
 
-            {/* MOBILE MENU BUTTON */}
+            {/* ======================================================
+                MOBILE ACTIONS
+            ====================================================== */}
 
-            <button
-              type="button"
-              aria-label="Open menu"
-              onClick={() => {
-                setMobileOpen(true);
-                setProductsOpen(false);
-              }}
-              className={`flex h-[42px] w-[42px] items-center justify-center border lg:hidden ${
-                productsOpen
-                  ? "border-white/20 text-white"
-                  : "border-black/10 text-black"
-              }`}
-            >
-              <div className="flex w-[19px] flex-col gap-[5px]">
-                <span className="h-[1px] w-full bg-current" />
-                <span className="h-[1px] w-[75%] bg-current" />
-                <span className="h-[1px] w-full bg-current" />
-              </div>
-            </button>
-          </div>
-        </div>
+            <div className="flex items-center gap-1 lg:hidden">
 
-        {/* ====================================================
-            SEARCH PANEL
-        ==================================================== */}
-
-        <AnimatePresence>
-          {searchOpen && (
-            <motion.div
-              initial={{
-                height: 0,
-                opacity: 0,
-              }}
-              animate={{
-                height: "auto",
-                opacity: 1,
-              }}
-              exit={{
-                height: 0,
-                opacity: 0,
-              }}
-              className="overflow-hidden border-b border-black/10 bg-[#f5f2eb]"
-            >
-              <form
-                onSubmit={handleSearch}
-                className="mx-auto flex max-w-[1100px] items-center gap-3 px-6 py-5"
+              <button
+                type="button"
+                onClick={() => setSearchOpen((prev) => !prev)}
+                className="flex h-10 w-10 items-center justify-center text-[#111111]"
+                aria-label="Search"
               >
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={(e) =>
-                    setSearchValue(e.target.value)
-                  }
-                  autoFocus
-                  placeholder="Search products..."
-                  className="h-[50px] flex-1 border border-black/15 bg-white px-5 font-(--font-lexend) text-sm outline-none placeholder:text-black/35 focus:border-[#D4A017]"
+                <SearchIcon />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px]"
+                aria-label="Menu"
+              >
+
+                <span
+                  className={`h-[1.5px] w-6 bg-black transition-all duration-300 ${
+                    mobileMenuOpen
+                      ? "translate-y-[6.5px] rotate-45"
+                      : ""
+                  }`}
                 />
 
-                <button
-                  type="submit"
-                  className="h-[50px] bg-black px-7 text-xs font-semibold uppercase tracking-[0.15em] text-white"
-                >
-                  Search
-                </button>
-              </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+                <span
+                  className={`h-[1.5px] w-6 bg-black transition-all duration-300 ${
+                    mobileMenuOpen ? "opacity-0" : ""
+                  }`}
+                />
 
-      {/* ======================================================
-          DESKTOP MEGA MENU
-      ====================================================== */}
+                <span
+                  className={`h-[1.5px] w-6 bg-black transition-all duration-300 ${
+                    mobileMenuOpen
+                      ? "-translate-y-[6.5px] -rotate-45"
+                      : ""
+                  }`}
+                />
 
-      <AnimatePresence>
-        {productsOpen && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: -15,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              y: -15,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            onMouseEnter={() =>
-              setProductsOpen(true)
-            }
-            onMouseLeave={() =>
-              setProductsOpen(false)
-            }
-            className={`fixed inset-x-0 bottom-0 z-[999] overflow-hidden bg-black ${
-              isScrolled
-                ? "top-[76px]"
-                : "top-[110px]"
+              </button>
+
+            </div>
+
+          </div>
+
+          {/* ========================================================
+              MOBILE SEARCH
+          ======================================================== */}
+
+          <div
+            className={`overflow-hidden border-t border-black/5 bg-white transition-all duration-300 lg:hidden ${
+              searchOpen
+                ? "max-h-[80px] opacity-100"
+                : "max-h-0 opacity-0"
             }`}
           >
-            <div className="flex h-[calc(100vh-110px)] min-h-0 flex-col bg-[#111]">
 
-              {/* ==================================================
-                  MEGA HEADER
-              ================================================== */}
-
-              <div className="flex h-[52px] shrink-0 items-center justify-between border-b border-white/10 px-6 lg:px-10">
-                <div className="flex items-center gap-5">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-[#D4A017]">
-                    Products
-                  </span>
-
-                  <span className="hidden h-[1px] w-10 bg-white/20 sm:block" />
-
-                  <span className="hidden text-[10px] uppercase tracking-[0.16em] text-white/40 sm:block">
-                    Explore Our Product Range
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setProductsOpen(false)
-                  }
-                  className="flex items-center gap-3 text-[9px] uppercase tracking-[0.18em] text-white/60 transition hover:text-[#D4A017]"
-                >
-                  Close
-
-                  <span className="flex h-7 w-7 items-center justify-center border border-white/15">
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M6 6l12 12" />
-                      <path d="M18 6 6 18" />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-
-              {/* ==================================================
-                  MAIN AREA
-              ================================================== */}
-
-              <div className="grid min-h-0 flex-1 lg:grid-cols-[300px_minmax(0,1fr)]">
-
-                {/* ==================================================
-                    LEFT CATEGORY SIDEBAR
-                ================================================== */}
-
-                <aside className="min-h-0 overflow-y-auto border-r border-white/10 bg-[#0c0c0c] p-3 lg:p-4">
-
-                  <div className="mb-3 px-2">
-                    <p className="font-(--font-lexend) text-[9px] uppercase tracking-[0.18em] text-white/35">
-                      Categories
-                    </p>
-                  </div>
-
-                  <div className="space-y-1">
-
-                    {productCategories.map(
-                      (category, index) => {
-                        const active =
-                          index ===
-                          activeMegaCategory;
-
-                        return (
-                          <button
-                            type="button"
-                            key={category.title}
-                            onMouseEnter={() =>
-                              setActiveMegaCategory(
-                                index
-                              )
-                            }
-                            onClick={() =>
-                              setActiveMegaCategory(
-                                index
-                              )
-                            }
-                            className={`group relative flex w-full items-center gap-3 border p-1.5 text-left transition-all duration-300 ${
-                              active
-                                ? "border-[#D4A017]/50 bg-[#D4A017]"
-                                : "border-transparent bg-white/[0.025] hover:border-white/10 hover:bg-white/[0.06]"
-                            }`}
-                          >
-
-                            {/* SQUARE CATEGORY IMAGE */}
-
-                            <div className="relative aspect-square w-[58px] shrink-0 overflow-hidden bg-black">
-                              <MenuImage
-                                src={category.image}
-                                alt={category.title}
-                                sizes="100px"
-                                className="object-cover transition duration-500 group-hover:scale-110"
-                              />
-
-                              <div className="absolute inset-0 bg-black/10" />
-                            </div>
-
-                            {/* CATEGORY TEXT */}
-
-                            <div className="min-w-0 flex-1">
-                              <p
-                                className={`font-(--font-outfit) text-[11px] font-medium leading-tight ${
-                                  active
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                {category.title}
-                              </p>
-
-                              <p
-                                className={`mt-1 font-(--font-lexend) text-[7px] uppercase tracking-[0.12em] ${
-                                  active
-                                    ? "text-black/50"
-                                    : "text-white/30"
-                                }`}
-                              >
-                                {category.items.length}{" "}
-                                {category.items.length ===
-                                1
-                                  ? "Product"
-                                  : "Products"}
-                              </p>
-                            </div>
-
-                            {/* ARROW */}
-
-                            <svg
-                              width="13"
-                              height="13"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              className={`shrink-0 transition-transform duration-300 ${
-                                active
-                                  ? "text-black"
-                                  : "text-white/30 group-hover:translate-x-1"
-                              }`}
-                            >
-                              <path d="M5 12h14" />
-                              <path d="m13 6 6 6-6 6" />
-                            </svg>
-
-                          </button>
-                        );
-                      }
-                    )}
-
-                  </div>
-                </aside>
-
-                {/* ==================================================
-                    RIGHT CONTENT
-                    NO SCROLL
-                ================================================== */}
-
-                <main className="min-h-0 overflow-hidden bg-[#f5f2eb]">
-
-                  <AnimatePresence mode="wait">
-
-                    <motion.div
-                      key={activeCategory.title}
-                      initial={{
-                        opacity: 0,
-                        y: 8,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: -8,
-                      }}
-                      transition={{
-                        duration: 0.2,
-                      }}
-                      className="flex h-full min-h-0 flex-col"
-                    >
-
-                      {/* ==================================================
-                          CATEGORY HERO
-                      ================================================== */}
-
-                      <div className="grid shrink-0 border-b border-black/10 md:grid-cols-[1fr_220px]">
-
-                        <div className="flex min-h-[118px] flex-col justify-between p-5">
-
-                          <div>
-                            <p className="mb-2 font-(--font-lexend) text-[8px] uppercase tracking-[0.25em] text-[#B8860B]">
-                              Product Category
-                            </p>
-
-                            <h2 className="font-(--font-outfit) text-[30px] font-medium leading-[0.95] tracking-[-0.04em] text-black lg:text-[38px]">
-                              {activeCategory.title}
-                            </h2>
-                          </div>
-
-                          <Link
-                            href={activeCategory.href}
-                            onClick={() =>
-                              setProductsOpen(false)
-                            }
-                            className="mt-3 flex w-fit items-center gap-3 border-b border-black pb-1.5 text-[8px] font-semibold uppercase tracking-[0.18em] text-black transition hover:border-[#D4A017] hover:text-[#B8860B]"
-                          >
-                            View Category
-
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path d="M5 12h14" />
-                              <path d="m13 6 6 6-6 6" />
-                            </svg>
-                          </Link>
-                        </div>
-
-                        {/* CATEGORY HERO IMAGE */}
-
-                        <Link
-                          href={activeCategory.href}
-                          onClick={() =>
-                            setProductsOpen(false)
-                          }
-                          className="group relative hidden min-h-[118px] overflow-hidden bg-black md:block"
-                        >
-                          <MenuImage
-                            src={activeCategory.image}
-                            alt={activeCategory.title}
-                            sizes="300px"
-                            className="object-cover transition duration-700 group-hover:scale-105"
-                          />
-
-                          <div className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10" />
-
-                          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-                            <span className="font-(--font-outfit) text-[10px] uppercase tracking-[0.12em] text-white">
-                              {activeCategory.title}
-                            </span>
-
-                            <span className="flex h-6 w-6 items-center justify-center bg-[#D4A017] text-[11px] text-black">
-                              ↗
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
-
-                      {/* ==================================================
-                          PRODUCTS AREA
-                      ================================================== */}
-
-                      <div className="min-h-0 flex-1 overflow-hidden p-3 lg:p-4">
-
-                        {activeCategory.items.length >
-                        0 ? (
-                          <div className="flex h-full min-h-0 flex-col">
-
-                            {/* PRODUCT TITLE */}
-
-                            <div className="mb-2 flex shrink-0 items-end justify-between">
-
-                              <div>
-                                <p className="font-(--font-lexend) text-[7px] uppercase tracking-[0.2em] text-black/40">
-                                  Products
-                                </p>
-
-                                <h3 className="mt-0.5 font-(--font-outfit) text-[17px] font-medium text-black">
-                                  Available Products
-                                </h3>
-                              </div>
-
-                              <span className="font-(--font-lexend) text-[8px] text-black/40">
-                                {activeCategory.items.length
-                                  .toString()
-                                  .padStart(2, "0")}
-                              </span>
-
-                            </div>
-
-                            {/* PRODUCT GRID */}
-
-                            <div className="grid min-h-0 flex-1 grid-cols-2 content-start gap-2 md:grid-cols-3 xl:grid-cols-4">
-
-                              {activeCategory.items.map(
-                                (item, index) => {
-
-                                  const image =
-                                    getItemImage(item);
-
-                                  const isIndented =
-                                    item.label.startsWith(
-                                      "--"
-                                    );
-
-                                  const cleanLabel =
-                                    item.label.replace(
-                                      /^--\s*/,
-                                      ""
-                                    );
-
-                                  return (
-                                    <Link
-                                      key={`${item.href}-${index}`}
-                                      href={item.href}
-                                      onClick={() =>
-                                        setProductsOpen(
-                                          false
-                                        )
-                                      }
-                                      className={`group relative overflow-hidden border border-black/10 bg-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A017] ${
-                                        isIndented
-                                          ? "ring-1 ring-[#D4A017]/20"
-                                          : ""
-                                      }`}
-                                    >
-
-                                      {/* =================================
-                                          SQUARE PRODUCT IMAGE
-                                      ================================= */}
-
-                                      <div className="relative mx-auto aspect-square w-full max-w-[82px] overflow-hidden bg-[#dedbd3]">
-
-                                        <MenuImage
-                                          src={image}
-                                          alt={cleanLabel}
-                                          sizes="150px"
-                                          className="object-cover transition duration-700 group-hover:scale-110"
-                                        />
-
-                                        <div className="absolute inset-0 bg-black/10 transition group-hover:bg-black/0" />
-
-                                        {isIndented && (
-                                          <div className="absolute left-1 top-1 bg-[#D4A017] px-1 py-0.5 text-[5px] font-semibold uppercase tracking-[0.1em] text-black">
-                                            Grade
-                                          </div>
-                                        )}
-
-                                        <span className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center bg-black text-[9px] text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
-                                          ↗
-                                        </span>
-
-                                      </div>
-
-                                      {/* PRODUCT NAME */}
-
-                                      <div className="min-h-[38px] p-1.5">
-
-                                        <p className="font-(--font-outfit) text-[9px] font-medium leading-tight text-black">
-                                          {cleanLabel}
-                                        </p>
-
-                                        <div className="mt-1 h-[1px] w-3 bg-[#D4A017] transition-all duration-300 group-hover:w-6" />
-
-                                      </div>
-
-                                    </Link>
-                                  );
-                                }
-                              )}
-
-                            </div>
-                          </div>
-                        ) : (
-
-                          /* ==================================================
-                             CATEGORY WITHOUT SUB PRODUCTS
-                          ================================================== */
-
-                          <Link
-                            href={activeCategory.href}
-                            onClick={() =>
-                              setProductsOpen(false)
-                            }
-                            className="group grid min-h-[180px] overflow-hidden border border-black/10 bg-black md:grid-cols-[1fr_230px]"
-                          >
-
-                            <div className="flex flex-col justify-center p-6">
-
-                              <p className="font-(--font-lexend) text-[8px] uppercase tracking-[0.2em] text-[#D4A017]">
-                                Category
-                              </p>
-
-                              <h3 className="mt-2 font-(--font-outfit) text-2xl font-medium text-white">
-                                {activeCategory.title}
-                              </h3>
-
-                              <span className="mt-5 flex w-fit items-center gap-3 border-b border-[#D4A017] pb-1.5 text-[8px] uppercase tracking-[0.16em] text-white">
-                                Explore Product
-                                <span>↗</span>
-                              </span>
-
-                            </div>
-
-                            <div className="relative min-h-[180px] overflow-hidden">
-
-                              <MenuImage
-                                src={
-                                  activeCategory.image
-                                }
-                                alt={
-                                  activeCategory.title
-                                }
-                                sizes="300px"
-                                className="object-cover transition duration-700 group-hover:scale-105"
-                              />
-
-                              <div className="absolute inset-0 bg-black/20" />
-
-                            </div>
-
-                          </Link>
-                        )}
-
-                      </div>
-                    </motion.div>
-
-                  </AnimatePresence>
-
-                </main>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ======================================================
-          MOBILE MENU
-      ====================================================== */}
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              x: "100%",
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            exit={{
-              opacity: 0,
-              x: "100%",
-            }}
-            transition={{
-              duration: 0.3,
-            }}
-            className="fixed inset-0 z-[2000] overflow-y-auto bg-[#0c0c0c] text-white lg:hidden"
-          >
-
-            {/* MOBILE HEADER */}
-
-            <div className="sticky top-0 z-20 flex h-[76px] items-center justify-between border-b border-white/10 bg-[#0c0c0c] px-5">
-
-              <Image
-                src="/New-Project-6-e1775111050628.webp"
-                alt="Resol Industries"
-                width={150}
-                height={60}
-                className="w-[130px] brightness-0 invert"
+            <form
+              onSubmit={handleSearch}
+              className="mx-auto flex max-w-[1400px] px-5 py-3"
+            >
+
+              <input
+                type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search products..."
+                className="min-w-0 flex-1 border border-black/10 px-4 py-3 text-sm outline-none focus:border-[#D4A017]"
               />
 
               <button
-                type="button"
-                onClick={() =>
-                  setMobileOpen(false)
-                }
-                className="flex h-10 w-10 items-center justify-center border border-white/15"
+                type="submit"
+                className="w-14 bg-[#D4A017] text-black"
               >
-                <svg
-                  width="17"
-                  height="17"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path d="M6 6l12 12" />
-                  <path d="M18 6 6 18" />
-                </svg>
+                →
               </button>
 
-            </div>
+            </form>
 
-            {/* MOBILE NAV */}
+          </div>
 
-            <div className="px-5 pb-10 pt-6">
+          {/* ========================================================
+              MOBILE MENU
+          ======================================================== */}
 
-              {navigation.map((item) => {
+          <div
+            className={`overflow-hidden border-t border-black/5 bg-white transition-all duration-500 lg:hidden ${
+              mobileMenuOpen
+                ? "max-h-[650px] opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
 
-                if (item.mega) {
-                  return (
-                    <div
-                      key={item.label}
-                      className="border-b border-white/10"
-                    >
+            <div className="px-5 pb-6 pt-3">
 
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setMobileProductOpen(
-                            (prev) => !prev
-                          )
-                        }
-                        className="flex w-full items-center justify-between py-5"
-                      >
+              <MobileNavItem
+                href="/"
+                onClick={closeMobileMenu}
+              >
+                Home
+              </MobileNavItem>
 
-                        <span className="font-(--font-outfit) text-lg">
-                          {item.label}
-                        </span>
+              <MobileNavItem
+                href="/about-us"
+                onClick={closeMobileMenu}
+              >
+                About Us
+              </MobileNavItem>
 
-                        <span
-                          className={`text-[#D4A017] transition-transform ${
-                            mobileProductOpen
-                              ? "rotate-45"
-                              : ""
-                          }`}
-                        >
-                          +
-                        </span>
+              <Link
+                href="/products"
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between border-b border-black/10 py-4 text-[14px] font-semibold text-[#111111]"
+              >
+                <span>
+                  Products
+                </span>
 
-                      </button>
+                <span className="text-[#B8860B]">
+                  →
+                </span>
+              </Link>
 
-                      <AnimatePresence>
+              <MobileNavItem
+                href="/articles"
+                onClick={closeMobileMenu}
+              >
+                Articles
+              </MobileNavItem>
 
-                        {mobileProductOpen && (
-                          <motion.div
-                            initial={{
-                              height: 0,
-                              opacity: 0,
-                            }}
-                            animate={{
-                              height: "auto",
-                              opacity: 1,
-                            }}
-                            exit={{
-                              height: 0,
-                              opacity: 0,
-                            }}
-                            className="overflow-hidden"
-                          >
-
-                            <div className="space-y-5 pb-6">
-
-                              {productCategories.map(
-                                (category) => (
-                                  <div
-                                    key={
-                                      category.title
-                                    }
-                                    className="border border-white/10 bg-white/[0.025]"
-                                  >
-
-                                    {/* MOBILE CATEGORY IMAGE */}
-
-                                    <Link
-                                      href={
-                                        category.href
-                                      }
-                                      onClick={() =>
-                                        setMobileOpen(
-                                          false
-                                        )
-                                      }
-                                      className="group relative block h-[150px] overflow-hidden"
-                                    >
-
-                                      <MenuImage
-                                        src={
-                                          category.image
-                                        }
-                                        alt={
-                                          category.title
-                                        }
-                                        sizes="600px"
-                                        className="object-cover transition duration-700 group-hover:scale-105"
-                                      />
-
-                                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                                      <div className="absolute bottom-4 left-4 right-4">
-
-                                        <p className="font-(--font-outfit) text-xl font-medium">
-                                          {
-                                            category.title
-                                          }
-                                        </p>
-
-                                      </div>
-                                    </Link>
-
-                                    {/* MOBILE PRODUCTS */}
-
-                                    {category.items
-                                      .length > 0 && (
-                                      <div className="grid grid-cols-2 gap-2 p-2">
-
-                                        {category.items.map(
-                                          (
-                                            item,
-                                            index
-                                          ) => {
-
-                                            const image =
-                                              getItemImage(
-                                                item
-                                              );
-
-                                            const cleanLabel =
-                                              item.label.replace(
-                                                /^--\s*/,
-                                                ""
-                                              );
-
-                                            return (
-                                              <Link
-                                                key={`${item.href}-${index}`}
-                                                href={
-                                                  item.href
-                                                }
-                                                onClick={() =>
-                                                  setMobileOpen(
-                                                    false
-                                                  )
-                                                }
-                                                className="group overflow-hidden border border-white/10 bg-black"
-                                              >
-
-                                                {/* SQUARE MOBILE IMAGE */}
-
-                                                <div className="relative aspect-square w-full overflow-hidden">
-
-                                                  <MenuImage
-                                                    src={
-                                                      image
-                                                    }
-                                                    alt={
-                                                      cleanLabel
-                                                    }
-                                                    sizes="250px"
-                                                    className="object-cover transition duration-500 group-hover:scale-110"
-                                                  />
-
-                                                  <div className="absolute inset-0 bg-black/10" />
-
-                                                </div>
-
-                                                <div className="p-2">
-
-                                                  <p className="font-(--font-outfit) text-[10px] leading-tight text-white">
-                                                    {
-                                                      cleanLabel
-                                                    }
-                                                  </p>
-
-                                                </div>
-
-                                              </Link>
-                                            );
-                                          }
-                                        )}
-
-                                      </div>
-                                    )}
-
-                                  </div>
-                                )
-                              )}
-
-                            </div>
-
-                          </motion.div>
-                        )}
-
-                      </AnimatePresence>
-
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() =>
-                      setMobileOpen(false)
-                    }
-                    className="flex items-center justify-between border-b border-white/10 py-5 font-(--font-outfit) text-lg"
-                  >
-
-                    {item.label}
-
-                    <span className="text-[#D4A017]">
-                      ↗
-                    </span>
-
-                  </Link>
-                );
-              })}
-
-              {/* MOBILE QUOTE */}
+              <MobileNavItem
+                href="/contact-us"
+                onClick={closeMobileMenu}
+              >
+                Contact Us
+              </MobileNavItem>
 
               <button
                 type="button"
                 onClick={() => {
+                  closeMobileMenu();
                   setQuoteOpen(true);
-                  setMobileOpen(false);
                 }}
-                className="mt-7 flex h-[52px] w-full items-center justify-between bg-[#D4A017] px-5 text-xs font-semibold uppercase tracking-[0.15em] text-black"
+                className="mt-5 w-full bg-[#111111] px-5 py-4 text-[13px] font-bold uppercase tracking-[1.5px] text-white"
               >
-
                 Get a Quote
-
-                <span>↗</span>
-
               </button>
 
-              {/* MOBILE CONTACT */}
-
-              <div className="mt-8 space-y-3 border-t border-white/10 pt-7">
+              <div className="mt-5 border-t border-black/10 pt-5">
 
                 <a
                   href="tel:+911141417725"
-                  className="block font-(--font-lexend) text-xs text-white/50"
+                  className="block text-[11px] text-black/50"
                 >
-                  +91 11-41417725
+                  +91-11-41417725
                 </a>
 
                 <a
                   href="mailto:info@resolvinyls.com"
-                  className="block font-(--font-lexend) text-xs text-white/50"
+                  className="mt-2 block text-[11px] text-black/50"
                 >
                   info@resolvinyls.com
                 </a>
@@ -1538,20 +515,718 @@ export default function Navbar() {
               </div>
 
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* ======================================================
-          QUOTE POPUP
-      ====================================================== */}
+          </div>
+
+        </div>
+
+      </header>
+
+      {/* ============================================================
+          POPUP
+      ============================================================ */}
 
       <Popup
         isOpen={quoteOpen}
-        onClose={() =>
-          setQuoteOpen(false)
-        }
+        onClose={() => setQuoteOpen(false)}
       />
+
     </>
   );
 }
+
+
+/* ==================================================================
+   NAV ITEM
+================================================================== */
+
+function NavItem({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="group relative px-4 py-4 text-[15px] font-semibold tracking-[0.2px] text-[#111111] transition-colors duration-300 hover:text-[#B8860B]"
+    >
+
+      {children}
+
+      <span className="absolute bottom-[7px] left-4 right-4 h-[1.5px] origin-left scale-x-0 bg-[#D4A017] transition-transform duration-300 group-hover:scale-x-100" />
+
+    </Link>
+  );
+}
+
+
+/* ==================================================================
+   MOBILE NAV ITEM
+================================================================== */
+
+function MobileNavItem({
+  href,
+  children,
+  onClick,
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="flex items-center justify-between border-b border-black/10 py-4 text-[14px] font-semibold text-[#111111] transition-colors hover:text-[#B8860B]"
+    >
+
+      <span>
+        {children}
+      </span>
+
+      <span className="text-[#B8860B]">
+        →
+      </span>
+
+    </Link>
+  );
+}
+
+
+/* ==================================================================
+   SEARCH ICON
+================================================================== */
+
+function SearchIcon() {
+  return (
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+
+      <circle
+        cx="11"
+        cy="11"
+        r="6.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+
+      <path
+        d="M16 16L21 21"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+
+    </svg>
+  );
+}
+
+
+/* ==================================================================
+   PREMIUM DYNAMIC MEGA MENU
+================================================================== */
+
+function MegaMenu({
+  isOpen,
+  isScrolled,
+  onMouseEnter,
+  onMouseLeave,
+}) {
+
+  const [activeCategory, setActiveCategory] = useState(0);
+
+  /* ================================================================
+     CATEGORY DATA
+
+     IMPORTANT:
+
+     All images are directly inside PUBLIC folder.
+
+     Example:
+
+     public/polymers.webp
+     public/pvc-resin.webp
+
+     URL:
+
+     /polymers.webp
+     /pvc-resin.webp
+  ================================================================ */
+
+  const categories = [
+
+    /* ==============================================================
+       01 - POLYMERS
+    ============================================================== */
+
+    {
+      number: "01",
+      title: "Polymers",
+      image: "/polymers.webp",
+
+      items: [
+        {
+          name: "PVC Resin",
+          image: "/polystyrene.webp",
+          href: "/products/pvc-resin",
+          tag: "PVC",
+        },
+        {
+          name: "Suspension Grade",
+          image: "/polystyrene.webp",
+          href: "/products/pvc-resin/suspension-grade",
+          tag: "Grade",
+        },
+        {
+          name: "Emulsion Grade",
+          image: "/polystyrene.webp",
+          href: "/products/pvc-resin/emulsion-grade",
+          tag: "Grade",
+        },
+        {
+          name: "EVA Resin",
+          image: "/polystyrene.webp",
+          href: "/products/eva-resin",
+          tag: "EVA",
+        },
+        {
+          name: "Polyethylene (PE)",
+          image: "/polyethylene.webp",
+          href: "/products/polyethylene",
+          tag: "PE",
+        },
+        {
+          name: "Polypropylene (PP)",
+          image: "/polypropylene.webp",
+          href: "/products/polypropylene",
+          tag: "PP",
+        },
+        {
+          name: "Polystyrene",
+          image: "/polystyrene.webp",
+          href: "/products/polystyrene",
+          tag: "PS",
+        },
+        {
+          name: "POE",
+          image: "/polystyrene.webp",
+          href: "/products/poe",
+          tag: "POE",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       02 - PET RESIN
+    ============================================================== */
+
+    {
+      number: "02",
+      title: "Pet Resin",
+      image: "/polystyrene.webp",
+
+      items: [
+        {
+          name: "PET Resin",
+          image: "/pet-resin.webp",
+          href: "/products/pet-resin",
+          tag: "PET",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       03 - CALCIUM CARBONATE
+    ============================================================== */
+
+    {
+      number: "03",
+      title: "Calcium Carbonate",
+      subtitle: "Mineral Fillers",
+      image: "/calcium-carbonate.webp",
+
+      items: [
+        {
+          name: "Calcium Carbonate",
+          image: "/calcium-carbonate.webp",
+          href: "/products/calcium-carbonate",
+          tag: "CaCO₃",
+        },
+        {
+          name: "Precipitated Calcium",
+          image: "/precipitated-calcium.webp",
+          href: "/products/precipitated-calcium",
+          tag: "PCC",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       04 - ZIKAI
+    ============================================================== */
+
+    {
+      number: "04",
+      title: "Zikai",
+      image: "/zikai.webp",
+
+      items: [
+        {
+          name: "Zikai",
+          image: "/zikai.webp",
+          href: "/products/zikai",
+          tag: "Specialty",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       05 - CITRIC ACID
+    ============================================================== */
+
+    {
+      number: "05",
+      title: "Citric Acid",
+      image: "/citric-acid.webp",
+
+      items: [
+        {
+          name: "Citric Acid",
+          image: "/citric-acid.webp",
+          href: "/products/citric-acid",
+          tag: "Chemical",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       06 - PLASTICIZERS
+    ============================================================== */
+
+    {
+      number: "06",
+      title: "Plasticizers",
+      image: "/plasticizers.webp",
+
+      items: [
+        {
+          name: "DOP",
+          image: "/dop.webp",
+          href: "/products/plasticizers/dop",
+          tag: "DOP",
+        },
+        {
+          name: "DOTP",
+          image: "/dotp.webp",
+          href: "/products/plasticizers/dotp",
+          tag: "DOTP",
+        },
+        {
+          name: "DINP",
+          image: "/dinp.webp",
+          href: "/products/plasticizers/dinp",
+          tag: "DINP",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       07 - RUBBER
+    ============================================================== */
+
+    {
+      number: "07",
+      title: "Natural & Synthetic Rubber",
+      image: "/rubber.webp",
+
+      items: [
+        {
+          name: "Natural & Synthetic Rubber",
+          image: "/rubber.webp",
+          href: "/products/rubber",
+          tag: "Rubber",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       08 - FILLERS & COLOURANTS
+    ============================================================== */
+
+    {
+      number: "08",
+      title: "Fillers & Colourants",
+      image: "/fillers-colourants.webp",
+
+      items: [
+        {
+          name: "Precipitated Silica",
+          image: "/precipitated-silica.webp",
+          href: "/products/precipitated-silica",
+          tag: "Silica",
+        },
+        {
+          name: "Carbon Black",
+          image: "/carbon-black.webp",
+          href: "/products/carbon-black",
+          tag: "Black",
+        },
+        {
+          name: "Zinc Oxide",
+          image: "/zinc-oxide.webp",
+          href: "/products/zinc-oxide",
+          tag: "ZnO",
+        },
+        {
+          name: "Titanium Dioxide",
+          image: "/titanium-dioxide.webp",
+          href: "/products/titanium-dioxide",
+          tag: "TiO₂",
+        },
+        {
+          name: "Stearic Acid",
+          image: "/stearic-acid.webp",
+          href: "/products/stearic-acid",
+          tag: "Acid",
+        },
+      ],
+    },
+
+
+    /* ==============================================================
+       09 - MELAMINE
+    ============================================================== */
+
+    {
+      number: "09",
+      title: "Melamine",
+      image: "/melamine.webp",
+
+      items: [
+        {
+          name: "Melamine",
+          image: "/melamine.webp",
+          href: "/products/melamine",
+          tag: "Melamine",
+        },
+      ],
+    },
+
+  ];
+
+
+  const active = categories[activeCategory];
+
+
+  return (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={`fixed left-1/2 z-[1000] w-[1160px] max-w-[calc(100vw-30px)] -translate-x-1/2 transition-all duration-300 ${
+        isScrolled
+          ? "top-[70px]"
+          : "top-[75px]"
+      } ${
+        isOpen
+          ? "pointer-events-auto visible translate-y-0 opacity-100"
+          : "pointer-events-none invisible -translate-y-3 opacity-0"
+      }`}
+    >
+
+      {/* ==========================================================
+          MAIN MENU
+      ========================================================== */}
+
+      <div className="overflow-hidden border border-black/10 bg-[#0d0d0d] shadow-[0_30px_80px_rgba(0,0,0,0.30)]">
+
+        {/* ========================================================
+            HEADER
+        ======================================================== */}
+
+        <div className="flex items-center justify-between border-b border-white/10 px-6 py-3.5">
+
+        
+
+    </div>
+
+
+        {/* ========================================================
+            MAIN CONTENT
+        ======================================================== */}
+
+        <div className="grid grid-cols-[235px_1fr]">
+
+          {/* ======================================================
+              LEFT CATEGORIES
+          ====================================================== */}
+
+          <div className="border-r border-white/10 bg-[#111111] py-2.5">
+
+            <div className="px-5 pb-2">
+
+              <span className="text-[14px] font-medium uppercase tracking-[2px] text-white/25">
+                Categories
+              </span>
+
+            </div>
+
+            {categories.map((category, index) => (
+
+              <button
+                key={category.title}
+                type="button"
+                onMouseEnter={() => setActiveCategory(index)}
+                onFocus={() => setActiveCategory(index)}
+                className={`group flex w-full items-center gap-3 px-5 py-[7px] text-left transition-all duration-200 ${
+                  activeCategory === index
+                    ? "bg-[#D4A017] text-black"
+                    : "text-white/55 hover:bg-white/[0.035] hover:text-white"
+                }`}
+              >
+
+                <span
+                  className={`w-6 text-[10px] font-bold ${
+                    activeCategory === index
+                      ? "text-black/50"
+                      : "text-[#D4A017]/50"
+                  }`}
+                >
+                  {category.number}
+                </span>
+
+                <span className="flex-1 text-[15px] font-semibold">
+                  {category.title}
+                </span>
+
+                <span
+                  className={`text-xs transition-all duration-200 ${
+                    activeCategory === index
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-1 opacity-0"
+                  }`}
+                >
+                  →
+                </span>
+
+              </button>
+
+            ))}
+
+          </div>
+
+
+          {/* ======================================================
+              RIGHT SHOWCASE
+          ====================================================== */}
+
+          <div className="bg-[#f4f2ec] p-5">
+
+            {/* ====================================================
+                TITLE
+            ==================================================== */}
+
+            <div className="mb-4 flex items-end justify-between">
+
+              <div>
+
+                <div className="mb-1.5 flex items-center gap-2">
+
+                  <span className="h-[1px] w-5 bg-[#D4A017]" />
+
+          
+
+                </div>
+
+                <h4 className="text-[25px] font-semibold tracking-tight text-[#111111]">
+                  {active.title}
+                </h4>
+
+                <p className="mt-1 max-w-[500px] text-[12px] leading-relaxed text-black/45">
+                  {active.description}
+                </p>
+
+              </div>
+
+              <span className="text-[10px] font-light leading-none text-black/[0.055]">
+                {active.number}
+              </span>
+
+            </div>
+
+
+            {/* ====================================================
+                PRODUCT AREA
+            ==================================================== */}
+
+            <div className="grid grid-cols-[190px_1fr] gap-3">
+
+              {/* ==================================================
+                  FEATURE IMAGE
+              ================================================== */}
+
+              <Link
+                href={active.items[0]?.href || "#"}
+                className="group relative h-[225px] overflow-hidden bg-[#111111]"
+              >
+
+                <Image
+                  src={active.image}
+                  alt={active.title}
+                  fill
+                  sizes="290px"
+                  className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-110"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+
+                <div className="absolute right-0 top-0 h-9 w-9 border-b border-l border-[#D4A017]/60" />
+
+                <div className="absolute bottom-3.5 left-3.5 right-3.5">
+
+                  <span className="mb-1 inline-block text-[6px] font-bold uppercase tracking-[2px] text-[#D4A017]">
+                    Featured
+                  </span>
+
+                  <h5 className="text-[15px] font-semibold text-white">
+                    {active.items[0]?.name}
+                  </h5>
+
+                  <div className="mt-2.5 flex items-center justify-between border-t border-white/20 pt-2">
+
+                    <span className="text-[7px] uppercase tracking-[1px] text-white/40">
+                      View Product
+                    </span>
+
+                    <span className="text-[#D4A017]">
+                      →
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </Link>
+
+
+              {/* ==================================================
+                  PRODUCT CARDS
+              ================================================== */}
+
+              <div className="grid grid-cols-2 gap-2">
+
+                {active.items.slice(1).map((item) => (
+
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="group relative flex items-center gap-2.5 overflow-hidden border border-black/[0.07] bg-white p-2.5 transition-all duration-300 hover:border-[#D4A017] hover:shadow-[0_10px_22px_rgba(0,0,0,0.07)]"
+                  >
+
+                    {/* IMAGE */}
+
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-[#efede7]">
+
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="410px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+
+                    </div>
+
+
+                    {/* TEXT */}
+
+                    <div className="min-w-0 flex-1">
+
+                      <span className="mb-1 block text-[8px] font-bold uppercase tracking-[1.5px] text-[#B8860B]">
+                        {item.tag}
+                      </span>
+
+                      <h5 className="text-[14px] font-semibold leading-tight text-[#222222] transition-colors group-hover:text-[#B8860B]">
+                        {item.name}
+                      </h5>
+
+                    </div>
+
+
+                    {/* ARROW */}
+
+                    <span className="absolute bottom-1.5 right-2 text-[11px] text-black/15 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#D4A017]">
+                      →
+                    </span>
+
+                  </Link>
+
+                ))}
+
+
+                {/* SINGLE PRODUCT */}
+
+                {active.items.length === 1 && (
+
+                  <div className="flex items-center justify-center border border-dashed border-black/10 bg-white/50">
+
+                    <p className="text-center text-[10px] uppercase tracking-[1.5px] text-black/25">
+                      Premium
+                      <br />
+                      Material Solution
+                    </p>
+
+                  </div>
+
+                )}
+
+              </div>
+
+            </div>
+
+
+            {/* ====================================================
+                BOTTOM BAR
+            ==================================================== */}
+
+            <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-3">
+
+              <div className="flex items-center gap-2">
+
+                <span className="h-1.5 w-1.5 bg-[#D4A017]" />
+
+                <span className="text-[7px] font-medium uppercase tracking-[1.5px] text-black/35">
+                  {active.items.length} Product
+                  {active.items.length > 1 ? "s" : ""}
+                  {" "}Available
+                </span>
+
+              </div>
+
+              <Link
+                href={active.items[0]?.href || "/products"}
+                className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-[1.5px] text-[#111111] hover:text-[#B8860B]"
+              >
+                Explore {active.title}
+
+                <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                  →
+                </span>
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+  );
+}
+
