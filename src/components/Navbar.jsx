@@ -477,7 +477,7 @@ export default function Navbar() {
               </MobileNavItem>
 
               <Link
-                href="/products"
+                href="/products/pvc-resin"
                 onClick={closeMobileMenu}
                 className="flex items-center justify-between border-b border-black/10 py-4 text-[14px] font-semibold text-[#111111]"
               >

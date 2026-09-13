@@ -240,7 +240,8 @@ export default function Hero() {
                   duration: 1.3,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="pointer-events-none absolute right-[-2%] top-[3%] z-[1] select-none text-[140px] font-black uppercase leading-none tracking-[-12px] text-[#D4A017]/[0.10] sm:text-[210px] md:text-[250px] lg:text-[300px] xl:text-[360px]"
+                className="pointer-events-none absolute right-[-2%] top-[3%] z-[1] select-none text-[140px] font-black uppercase leading-none tracking-[-12px]
+                 text-[#D4A017]/[0.10] sm:text-[210px] md:text-[250px] lg:text-[250px] xl:text-[300px]"
               >
                 {banner.title}
               </motion.div>
@@ -498,7 +499,7 @@ export default function Hero() {
                       text={banner.title}
                       delay={0.25}
                       color="#FFFFFF"
-                      className="text-[48px] font-black uppercase leading-[0.82] tracking-[-3px] sm:text-[62px] md:text-[72px] lg:text-[82px] xl:text-[92px]"
+                      className="text-[48px] font-black uppercase leading-[0.82] tracking-[-3px] sm:text-[62px] md:text-[72px] lg:text-[82px] xl:text-[85px]"
                     />
 
                     <AnimatedWord
