@@ -518,7 +518,7 @@ export default function Navbar() {
               <div className="mt-5 border-t border-black/10 pt-5">
 
                 <a
-                  href="tel:1141417725"
+                  href="tel:+911141417725"
                   className="block text-[11px] text-black/50"
                 >
                   +91-11-41417725
@@ -683,11 +683,7 @@ function MegaMenu({
       items: [
         {
           name: "PVC Resin",
-<<<<<<< HEAD
           image: "/pvc (4).webp",
-=======
-          image: "/pvc resin cate.webp",
->>>>>>> 8135b1f96b445292227b8c9393ac60ae591cbf90
           href: "/products/pvc-resin",
           tag: "PVC",
         },
