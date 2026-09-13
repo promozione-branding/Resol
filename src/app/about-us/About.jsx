@@ -718,7 +718,7 @@ export default function AboutUs() {
 
             <motion.div
               variants={fadeUp}
-              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+              className="group relative border-r border-b border-white/15 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
             >
 
               <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
@@ -744,7 +744,7 @@ export default function AboutUs() {
 
             <motion.div
               variants={fadeUp}
-              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+              className="group relative border-r border-b border-white/15 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
             >
 
               <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
@@ -770,7 +770,7 @@ export default function AboutUs() {
 
             <motion.div
               variants={fadeUp}
-              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+              className="group relative border-r border-b border-white/15 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
             >
 
               <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
@@ -796,7 +796,7 @@ export default function AboutUs() {
 
             <motion.div
               variants={fadeUp}
-              className="group relative border-r border-b border-white/10 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
+              className="group relative border-r border-b border-white/15 p-6 transition-colors duration-500 hover:bg-white/[0.04] sm:p-7"
             >
 
               <span className="absolute right-5 top-4 text-5xl font-black leading-none text-white/[0.035]">
