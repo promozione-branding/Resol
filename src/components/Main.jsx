@@ -498,7 +498,7 @@ export default function Hero() {
                       text={banner.title}
                       delay={0.25}
                       color="#FFFFFF"
-                      className="text-[48px] font-black uppercase leading-[0.82] tracking-[-3px] sm:text-[62px] md:text-[72px] lg:text-[82px] xl:text-[92px]"
+                      className="text-[48px] font-black uppercase leading-[0.82] tracking-[-3px] sm:text-[62px] md:text-[72px] lg:text-[82px] xl:text-[86px]"
                     />
 
                     <AnimatedWord
