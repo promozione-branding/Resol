@@ -678,12 +678,12 @@ function MegaMenu({
     {
       number: "01",
       title: "Polymers",
-      image: "/polymers.webp",
+      image: "/pvc (4).webp",
 
       items: [
         {
           name: "PVC Resin",
-          image: "/polystyrene.webp",
+          image: "/pvc (4).webp",
           href: "/products/pvc-resin",
           tag: "PVC",
         },
@@ -701,31 +701,31 @@ function MegaMenu({
         },
         {
           name: "EVA Resin",
-          image: "/polystyrene.webp",
+          image: "/2.webp",
           href: "/products/eva-resin",
           tag: "EVA",
         },
         {
           name: "Polyethylene (PE)",
-          image: "/polyethylene.webp",
+          image: "/3 (1).webp",
           href: "/products/polyethylene",
           tag: "PE",
         },
         {
           name: "Polypropylene (PP)",
-          image: "/polypropylene.webp",
+          image: "/4.webp",
           href: "/products/polypropylene",
           tag: "PP",
         },
         {
           name: "Polystyrene",
-          image: "/polystyrene.webp",
+          image: "/banner2 (8).webp",
           href: "/products/polystyrene",
           tag: "PS",
         },
         {
           name: "POE",
-          image: "/polystyrene.webp",
+          image: "/6.webp",
           href: "/products/poe",
           tag: "POE",
         },
@@ -740,12 +740,12 @@ function MegaMenu({
     {
       number: "02",
       title: "Pet Resin",
-      image: "/polystyrene.webp",
+      image: "/Polymers.webp",
 
       items: [
         {
           name: "PET Resin",
-          image: "/pet-resin.webp",
+          image: "/Polymers.webp",
           href: "/products/pet-resin",
           tag: "PET",
         },
@@ -761,18 +761,18 @@ function MegaMenu({
       number: "03",
       title: "Calcium Carbonate",
       subtitle: "Mineral Fillers",
-      image: "/calcium-carbonate.webp",
+      image: "/cal.webp",
 
       items: [
         {
           name: "Calcium Carbonate",
-          image: "/calcium-carbonate.webp",
+          image: "/cal.webp",
           href: "/products/calcium-carbonate",
           tag: "CaCO₃",
         },
         {
           name: "Precipitated Calcium",
-          image: "/precipitated-calcium.webp",
+          image: "/celcium carbonate.webp",
           href: "/products/precipitated-calcium",
           tag: "PCC",
         },
@@ -807,12 +807,12 @@ function MegaMenu({
     {
       number: "05",
       title: "Citric Acid",
-      image: "/citric-acid.webp",
+      image: "/critic.webp",
 
       items: [
         {
           name: "Citric Acid",
-          image: "/citric-acid.webp",
+          image: "/critic.webp",
           href: "/products/citric-acid",
           tag: "Chemical",
         },
@@ -827,24 +827,24 @@ function MegaMenu({
     {
       number: "06",
       title: "Plasticizers",
-      image: "/plasticizers.webp",
+      image: "/Dop.webp",
 
       items: [
         {
           name: "DOP",
-          image: "/dop.webp",
+          image: "/Dop.webp",
           href: "/products/plasticizers/dop",
           tag: "DOP",
         },
         {
           name: "DOTP",
-          image: "/dotp.webp",
+          image: "/Dotp.webp",
           href: "/products/plasticizers/dotp",
           tag: "DOTP",
         },
         {
           name: "DINP",
-          image: "/dinp.webp",
+          image: "/Dinp.webp",
           href: "/products/plasticizers/dinp",
           tag: "DINP",
         },
@@ -859,12 +859,12 @@ function MegaMenu({
     {
       number: "07",
       title: "Natural & Synthetic Rubber",
-      image: "/rubber.webp",
+      image: "/Polybutadiene Rubber.webp",
 
       items: [
         {
           name: "Natural & Synthetic Rubber",
-          image: "/rubber.webp",
+          image: "/Polybutadiene Rubber.webp",
           href: "/products/rubber",
           tag: "Rubber",
         },
@@ -879,7 +879,7 @@ function MegaMenu({
     {
       number: "08",
       title: "Fillers & Colourants",
-      image: "/fillers-colourants.webp",
+      image: "/precipitated-silica.webp",
 
       items: [
         {
@@ -890,7 +890,7 @@ function MegaMenu({
         },
         {
           name: "Carbon Black",
-          image: "/carbon-black.webp",
+          image: "/Carbon_black.webp",
           href: "/products/carbon-black",
           tag: "Black",
         },
@@ -902,13 +902,13 @@ function MegaMenu({
         },
         {
           name: "Titanium Dioxide",
-          image: "/titanium-dioxide.webp",
+          image: "/Titanium-Dioxide.webp",
           href: "/products/titanium-dioxide",
           tag: "TiO₂",
         },
         {
           name: "Stearic Acid",
-          image: "/stearic-acid.webp",
+          image: "/zinc-oxide (1).webp",
           href: "/products/stearic-acid",
           tag: "Acid",
         },
