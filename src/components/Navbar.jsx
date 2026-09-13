@@ -4,6 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Popup from "@/components/Popup";
+import {
+  FaPhone,
+  FaEnvelope,
+  FaLinkedinIn,
+  FaInstagram,
+  FaYoutube,
+} from "react-icons/fa6";
 
 /* ================================================================
    NAVBAR
@@ -107,64 +114,76 @@ export default function Navbar() {
             TOP CONTACT BAR
         ======================================================== */}
 
-        <div
-          className={`hidden overflow-hidden bg-[#111111] transition-all duration-300 lg:block ${
-            isScrolled
-              ? "h-0 opacity-0"
-              : "h-[10px] opacity-100"
-          }`}
-        >
-          <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6">
+  <div
+  className={`hidden overflow-hidden bg-[#111111] transition-all duration-300 lg:block ${
+    isScrolled
+      ? "h-0 opacity-0"
+      : "h-[34px] opacity-100"
+  }`}
+>
+  <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6">
 
-            <div className="flex items-center gap-6">
+    {/* LEFT — CONTACT */}
+    <div className="flex items-center gap-6">
 
-              <a
-                href="tel:+911141417725"
-                className="text-[13px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
-              >
-                +91-11-41417725
-              </a>
+      {/* PHONE */}
+      <a
+        href="tel:+911141417725"
+        className="flex items-center gap-2 text-[11px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
+      >
+        <FaPhone className="text-[10px]" />
+        <span>+91-11-41417725</span>
+      </a>
 
-              <a
-                href="mailto:info@resolvinyls.com"
-                className="text-[13px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
-              >
-                info@resolvinyls.com
-              </a>
+      {/* EMAIL */}
+      <a
+        href="mailto:info@resolvinyls.com"
+        className="flex items-center gap-2 text-[11px] font-medium tracking-[0.4px] text-white/60 transition-colors hover:text-[#D4A017]"
+      >
+        <FaEnvelope className="text-[11px]" />
+        <span>info@resolvinyls.com</span>
+      </a>
 
-            </div>
+    </div>
 
-            <div className="flex items-center gap-4">
+    {/* RIGHT — SOCIAL */}
+    <div className="flex items-center gap-3">
 
-              <span className="text-[12px] uppercase tracking-[1.5px] text-white/30">
-                Follow us
-              </span>
+      <span className="mr-1 text-[10px] uppercase tracking-[1.5px] text-white/30">
+        Follow us
+      </span>
 
-              <a
-                href="#"
-                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
-              >
-                IN
-              </a>
+      {/* LINKEDIN */}
+      <a
+        href="#"
+        aria-label="LinkedIn"
+        className="flex h-5 w-5 items-center justify-center text-white/50 transition-all duration-200 hover:text-[#D4A017]"
+      >
+        <FaLinkedinIn className="text-[10px]" />
+      </a>
 
-              <a
-                href="#"
-                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
-              >
-                IG
-              </a>
+      {/* INSTAGRAM */}
+      <a
+        href="#"
+        aria-label="Instagram"
+        className="flex h-5 w-5 items-center justify-center text-white/50 transition-all duration-200 hover:text-[#D4A017]"
+      >
+        <FaInstagram className="text-[11px]" />
+      </a>
 
-              <a
-                href="#"
-                className="text-[13px] text-white/50 transition-colors hover:text-[#D4A017]"
-              >
-                YT
-              </a>
+      {/* YOUTUBE */}
+      <a
+        href="#"
+        aria-label="YouTube"
+        className="flex h-5 w-5 items-center justify-center text-white/50 transition-all duration-200 hover:text-[#D4A017]"
+      >
+        <FaYoutube className="text-[11px]" />
+      </a>
 
-            </div>
+    </div>
 
-          </div>
-        </div>
+  </div>
+</div>
 
         {/* ========================================================
             MAIN NAVIGATION
