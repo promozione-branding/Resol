@@ -689,13 +689,13 @@ function MegaMenu({
         },
         {
           name: "Suspension Grade",
-          image: "/polystyrene.webp",
+          image: "/Suspension Grade.webp",
           href: "/products/pvc-resin/suspension-grade",
           tag: "Grade",
         },
         {
           name: "Emulsion Grade",
-          image: "/polystyrene.webp",
+          image: "/Emulsion Grade.webp",
           href: "/products/pvc-resin/emulsion-grade",
           tag: "Grade",
         },
